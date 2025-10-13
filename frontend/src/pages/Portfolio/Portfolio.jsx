@@ -3,7 +3,11 @@ import "./Portfolio.css"
 
 const Portföy = () => {
     return (
-        <div>Portföy</div>
+        <>
+            <h1 className="magazine-title">Projelerim</h1>
+            <h1 className="magazine-title">Sertifikalarım</h1>
+            <h1 className="magazine-title">CV</h1>
+        </>
     )
 }
 
