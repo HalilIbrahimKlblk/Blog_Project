@@ -1,4 +1,3 @@
-/* Navbar Temel Stil */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -10,7 +9,6 @@
     font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* Hamburger Toggle Buton */
 .navbar-toggle {
     display: none;
     background: none;
@@ -48,9 +46,7 @@
 .navbar-right {
     display: flex;
     flex-direction: column;
-    /* Dropdown'un diğer öğeler arasında açılmasını sağlamak için */
     gap: 8px;
-    /* Öğeler arasında boşluk bırak */
 }
 
 .navbar-right.open {
@@ -70,7 +66,6 @@
     color: #dedede;
 }
 
-/* Sertifikalar Dropdown Stili */
 .navbar-dropdown {
     position: relative;
 }
@@ -80,16 +75,12 @@
     flex-direction: column;
     background: #151b23;
     position: static;
-    /* Dropdown'un diğer öğeler arasında açılmasını sağlamak için */
     width: 100%;
     border: none;
     z-index: 100;
     font-family: 'Segoe UI', Arial, sans-serif;
-    /* Navbar ile aynı yazı tipi */
     font-size: 0.8rem;
-    /* Yazı boyutunu küçült */
     text-align: center;
-    /* Yazıları ortala */
 }
 
 .dropdown-column a {
@@ -97,26 +88,24 @@
     text-decoration: none;
     padding: 8px 16px;
     transition: none;
-    /* Hover efektini kaldır */
     text-align: center;
-    /* Yazıları ortala */
+}
+
+.Portfolio{
+    cursor: pointer;
 }
 
 @media (max-width: 600px) {
     .navbar {
         flex-direction: row;
-        /* Navbar'ı yatay hizala */
         justify-content: space-between;
-        /* Elemanları yatayda dağıt */
         align-items: center;
-        /* Elemanları dikeyde ortala */
         padding: 12px 16px;
     }
 
     .navbar-toggle {
         display: block;
         margin-left: auto;
-        /* Hamburger butonunu sağa hizala */
     }
 
     .navbar-right {
@@ -125,11 +114,9 @@
         gap: 12px;
         width: 100%;
         margin-top: 0;
-        /* Beyaz boşluğu kaldırmak için margin sıfırlandı */
         background: #151b23;
         position: absolute;
         top: 100%;
-        /* Hamburger butonunun hemen altına yerleştir */
         left: 0;
         padding: 16px 0;
         box-shadow: 0 2px 8px rgba(30, 41, 59, 0.12);
@@ -146,21 +133,32 @@
         padding: 12px 24px;
     }
 
+    .dropdown-column{
+        width: 97%;
+        margin-left: 3%;
+        margin-bottom: -22px;
+        margin-top: 0px;
+    }
+
     .dropdown-column a{
         width: 97%;
         margin-left: 3%;
         margin-bottom: 0px;
-        margin-top: 8px;
+        margin-top: 0px;
     }
 }
 
-/* Navbar Right için Büyük Ekran Düzeni */
+@media (min-width: 601px) and (max-width: 770px) {
+    .navbar-right a{
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+}
+
 @media (min-width: 601px) {
     .navbar-right {
         flex-direction: row;
-        /* Büyük ekranlarda yatay düzen */
         gap: 24px;
-        /* Öğeler arasındaki boşluğu artır */
     }
 
     .dropdown-column {
@@ -175,7 +173,6 @@
 
     .navbar-dropdown:hover .dropdown-column {
         display: flex;
-        /* Hover sırasında görünür yap */
         flex-direction: column;
         width: auto;
         border-radius: 8px;

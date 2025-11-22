@@ -27,6 +27,7 @@ body {
 .footer h5 {
     font-size: 1.7em;
     margin: 0;
+    cursor: default;
 }
 
 @media (max-width: 700px) {
@@ -100,7 +101,8 @@ body {
 
     .footer-title a {
         width: 100%;
-        padding: 6px 0;
+        padding: 0px;
+        margin: -5px;
         font-size: 1.6em;
     }
 }
@@ -111,8 +113,15 @@ body {
     margin-top: 10px;
     color: #bfc7d5;
     font-size: 0.9em;
+    cursor: default;
 }
 
-.footer-text p{
+.footer-text p {
     margin-bottom: 0px;
+}
+
+@media (max-width: 1500px) {
+    .footer-title {
+        gap: 40px;
+    }
 }

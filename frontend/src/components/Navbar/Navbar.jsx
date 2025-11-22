@@ -41,7 +41,7 @@ const Navbar = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <a>Portföy</a>
+          <a className='Portfolio'>Portföy</a>
           {dropdownOpen && (
             <div className="dropdown-column">
               <a href="/Portfolio">Projelerim</a>

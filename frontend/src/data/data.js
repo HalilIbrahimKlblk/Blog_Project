@@ -1,0 +1,10 @@
+const work_datas = new Map([
+    [1, { img: "istanbul.jpg", title: "Teknofest İstanbul", description: "Ayakları yere basmayan festival kapsamında yüz binlerce başvuru arasından öne çıkarak projelerini sergilemeye hak kazanan ve adını bir çok kesime duyuran Mersin UTİYO proje takımıma teşekkür ederim.", date: "10.01.2023", links: { instagram: "K", github: "K", linkedin: "K" }, likeSum: 14 }],
+    [2, { img: "antalya.jpg", title: "Teknofest Antalya", description: "Ayakları yere basmayan festival kapsamında yüz binlerce başvuru arasından öne çıkarak projelerini sergiledik.", date: "20.10.2024", links: { instagram: "K", github: "K", linkedin: "K" }, likeSum: 2 }],
+    [3, { img: "adana.jpg", title: "Teknofest Adana", description: "Ayakları yere basmayan festival kapsamında yüz binlerce başvuru arasından öne çıkarak projelerini sergilemeye hak kazanan takımıma teşekkür ederim eşekkür ederim eşekkür ederimeşekkür ederim eşekkür ederim eşekkür ederim eşekkür ederim eşekkür ederim.", date: "20.11.2024", links: { instagram: "K", linkedin: "K" }, likeSum: 5 }],
+    [4, { img: "istanbul.jpg", title: "Teknofest İstanbul", description: "Ayakları yere basmayan festival kapsamında yüz binlerce başvuru arasından öne çıkarak projelerini sergilemeye hak kazanan ve adını bir çok kesime duyuran Mersin UTİYO proje takımıma teşekkür ederim.", date: "10.01.2023", links: { instagram: "K", github: "K", linkedin: "K" }, likeSum: 14 }],
+    [5, { img: "antalya.jpg", title: "Teknofest Antalya", description: "Ayakları yere basmayan festival kapsamında yüz binlerce başvuru arasından öne çıkarak projelerini sergiledik.", date: "20.10.2024", links: { instagram: "K", github: "K", linkedin: "K" }, likeSum: 2 }],
+    [6, { img: "adana.jpg", title: "Teknofest Adana", description: "Ayakları yere basmayan festival kapsamında yüz binlerce başvuru arasından öne çıkarak projelerini sergilemeye hak kazanan takımıma teşekkür ederim eşekkür ederim eşekkür ederimeşekkür ederim eşekkür ederim eşekkür ederim eşekkür ederim eşekkür ederim.", date: "20.11.2024", links: { instagram: "K", linkedin: "K" }, likeSum: 5 }],
+]);
+
+export { work_datas };
