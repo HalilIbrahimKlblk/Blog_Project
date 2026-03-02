@@ -1,0 +1,32 @@
+li {
+  margin-bottom: 25px;
+  padding-left: 20px;
+  position: relative;
+}
+
+li::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background-color: #505050;
+  border-radius: 50%;
+}
+
+.date {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.content h3 {
+  font-size: 1.4rem;
+  margin: 5px 0;
+  color: #333;
+}
+
+.content p {
+  font-size: 1.15rem;
+  color: #555;
+}

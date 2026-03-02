@@ -2,11 +2,8 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import About from './pages/About/About';
 import NotFound from './pages/NotFound/NotFound';
 import Admin from './pages/Admin/Admin';
-import Portföy from './pages/Portfolio/Portfolio';
-import Events from './pages/Events/Events'
 import MainLayout from './layouts/MainLayout';
 import EmptyLayout from './layouts/EmptyLayout';
 
@@ -17,9 +14,6 @@ const App = () => {
         <Routes>
           {/* Ana sayfa - Navbar ve Footer var */}
           <Route path="/" element={<MainLayout><Home /></MainLayout>} />
-          <Route path="/About" element={<MainLayout><About /></MainLayout>} />
-          <Route path="/Portfolio" element={<MainLayout><Portföy /></MainLayout>} />
-          <Route path="/Events" element={<MainLayout><Events /></MainLayout>} />
           {/* 404 sayfası - Navbar ve Footer yok */}
           <Route path="*" element={<EmptyLayout><NotFound /></EmptyLayout>} />
           <Route path="/Admin" element={<EmptyLayout><Admin /></EmptyLayout>} />

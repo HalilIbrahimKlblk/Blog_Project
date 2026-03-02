@@ -23,10 +23,46 @@ const Footer = () => {
         </a>
       </div>
       <div className="footer-title">
-        <a href='/About'>Hakkımda</a>
-        <a href='/Portfolio'>Portföy</a>
-        <a href='/Events'>Etkinlikler</a>
-        <a href='/Portfolio'>İletişim</a>
+        <a
+          href="#about"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById("about")
+              .scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Hakkımda
+        </a>
+        <a
+          href="#projects"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById("projects")
+              .scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Projelerim
+        </a>
+        <a
+          href="#blog"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById("blog")
+              .scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Blog
+        </a>
+        <a
+          href="#contact"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById("contact")
+              .scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          İletişim
+        </a>
       </div>
       <div className="footer-text">
         <p> 2025 © Halil İbrahim Kalabalık | Tüm Hakları Saklıdır.</p>

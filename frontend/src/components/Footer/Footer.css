@@ -28,6 +28,9 @@ body {
     font-size: 1.7em;
     margin: 0;
     cursor: default;
+    font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @media (max-width: 700px) {
@@ -57,7 +60,13 @@ body {
 
 .footer .footer-social a i {
     font-size: 1.6em;
+    transition: transform 0.3s ease;
 }
+
+.footer .footer-social a i:hover {
+    transform: translateY(-3px);
+}
+
 
 @media (max-width: 700px) {
     .footer .footer-social a {
@@ -85,6 +94,7 @@ body {
     padding: 12px 28px;
     border-radius: 8px;
     transition: background 0.2s, color 0.2s;
+    font-weight: 600;
 }
 
 .footer-title a:hover {
