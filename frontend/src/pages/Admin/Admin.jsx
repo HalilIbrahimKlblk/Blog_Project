@@ -16,7 +16,7 @@ const Admin = () => {
 
   return (
     <div>
-      <h1>Admin Paneli</h1>
+      <h1>Admin Panelim</h1>
     </div>
   );
 };
