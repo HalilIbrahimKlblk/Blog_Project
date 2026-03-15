@@ -1,10 +1,24 @@
-import React from 'react'
-import './Admin.css'
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Admin.css";
 
 const Admin = () => {
-  return (
-    <div>Admin</div>
-  )
-}
 
-export default Admin
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const isAdmin = sessionStorage.getItem("isAdmin");
+
+    if (!isAdmin) {
+      navigate("/Login", { replace: true });
+    }
+  }, [navigate]);
+
+  return (
+    <div>
+      <h1>Admin Paneli</h1>
+    </div>
+  );
+};
+
+export default Admin;

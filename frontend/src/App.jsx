@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound/NotFound';
 import Admin from './pages/Admin/Admin';
 import MainLayout from './layouts/MainLayout';
 import EmptyLayout from './layouts/EmptyLayout';
+import Login from './pages/Login/Login';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           {/* 404 sayfası - Navbar ve Footer yok */}
           <Route path="*" element={<EmptyLayout><NotFound /></EmptyLayout>} />
           <Route path="/Admin" element={<EmptyLayout><Admin /></EmptyLayout>} />
+          <Route path="/Login" element={<EmptyLayout><Login /></EmptyLayout>} />
         </Routes>
       </BrowserRouter>
     </>
