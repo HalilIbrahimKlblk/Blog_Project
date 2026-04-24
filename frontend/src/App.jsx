@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
 import Admin from './pages/Admin/Admin';
+import Reset from './pages/Reset/Reset';
 import MainLayout from './layouts/MainLayout';
 import EmptyLayout from './layouts/EmptyLayout';
 import Login from './pages/Login/Login';
@@ -17,8 +18,9 @@ const App = () => {
           <Route path="/" element={<MainLayout><Home /></MainLayout>} />
           {/* 404 sayfası - Navbar ve Footer yok */}
           <Route path="*" element={<EmptyLayout><NotFound /></EmptyLayout>} />
-          <Route path="/Admin" element={<EmptyLayout><Admin /></EmptyLayout>} />
-          <Route path="/Login" element={<EmptyLayout><Login /></EmptyLayout>} />
+          <Route path="/admin" element={<EmptyLayout><Admin /></EmptyLayout>} />
+          <Route path="/reset-password" element={<EmptyLayout><Reset /></EmptyLayout>} />
+          <Route path="/login" element={<EmptyLayout><Login /></EmptyLayout>} />
         </Routes>
       </BrowserRouter>
     </>

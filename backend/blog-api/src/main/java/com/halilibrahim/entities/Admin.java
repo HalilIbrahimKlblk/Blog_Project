@@ -1,5 +1,6 @@
 package com.halilibrahim.entities;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -59,4 +60,10 @@ public class Admin {
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(name = "social_media", columnDefinition = "jsonb")
 	private Map<String, String> socialMedia;
+	
+	@Column(name = "reset_token")
+	private String resetToken;
+
+	@Column(name = "reset_token_expiry")
+	private LocalDateTime resetTokenExpiry;
 }

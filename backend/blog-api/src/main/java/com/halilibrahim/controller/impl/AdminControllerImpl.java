@@ -14,6 +14,8 @@ import com.halilibrahim.controller.IAdminController;
 import com.halilibrahim.dto.DtoAdmin;
 import com.halilibrahim.dto.DtoAdminHome;
 import com.halilibrahim.dto.DtoAdminLogin;
+import com.halilibrahim.dto.DtoForgotPassword;
+import com.halilibrahim.dto.DtoResetPassword;
 import com.halilibrahim.services.IAdminService;
 
 import jakarta.validation.Valid;
@@ -47,5 +49,17 @@ public class AdminControllerImpl implements IAdminController{
 	@PostMapping(path = "/login")
 	public boolean login(@RequestBody DtoAdminLogin dtoAdminLogin) {
 		return adminService.login(dtoAdminLogin);
+	}
+
+	@PostMapping(path = "/forgot-password")
+	@Override
+	public boolean forgotPassword(@RequestBody DtoForgotPassword dtoForgotPassword) {
+		return adminService.forgotPassword(dtoForgotPassword);
+	}
+
+	@PostMapping(path = "/reset-password")
+	@Override
+	public boolean resetPassword(@RequestBody DtoResetPassword dtoResetPassword) {
+		return adminService.resetPassword(dtoResetPassword);
 	}
 }

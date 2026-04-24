@@ -1,85 +1,179 @@
 .login-container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f5f9; /* açık gri-beyaz arka plan */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .login-card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 40px;
-    width: 350px;
-    border-radius: 16px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-    color: #000000;
+  background: #ffffff;
+  padding: 40px;
+  width: 360px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 .admin-icon {
-    display: block;
-    margin: 0 auto 20px auto;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 75px;
+  margin-bottom: 15px;
 }
 
 .login-card h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: 600;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    margin-bottom: 8px;
-    font-size: 14px;
-}
-
-.input-group input {
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-size: 14px;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: #04AA6D;
-    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
-}
-
-.login-btn {
-  display: inline-block;
-  padding: 0.75rem 2rem;
-  background: #04AA6D;
-  color: #0f172a;
+  margin-bottom: 25px;
   font-weight: 600;
-  border-radius: 50px;
-  transition: all 0.3s ease;
+  color: #0f172a;
 }
 
-.login-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px #059669;
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.login-btn-outline {
-  background: transparent;
-  border: 2px solid #04AA6D;
-  color: #04AA6D;
-  margin-left: 1rem;
+.input-span {
+  text-align: left;
 }
 
-.login-btn-outline:hover {
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  background: #f8fafc;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.form input:focus {
+  border-color: #04AA6D;
   background: #fff;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+.submit {
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  background: #04AA6D;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+}
+
+.span {
+  font-size: 13px;
+  text-align: right;
+}
+
+.span a {
+  color: #04AA6D;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+.form input::placeholder {
+  color: rgba(0, 0, 0, 0.35); 
+}
+
+/* --- Modal (Pop-up) Stilleri --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4); /* Koyu transparan arka plan */
+  backdrop-filter: blur(4px); /* Modern bulanıklık efekti */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.2s forwards;
+}
+
+.modal-card {
+  background: #ffffff;
+  padding: 30px;
+  width: 340px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  text-align: center;
+  transform: translateY(20px);
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  to { transform: translateY(0); }
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #64748b;
+  cursor: pointer;
+  transition: 0.2s;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #ef4444; /* Üzerine gelince kırmızı */
+}
+
+.modal-card h3 {
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.modal-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.msg-success {
+  color: #04AA6D;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(4, 170, 109, 0.1);
+  border-radius: 10px;
+}
+
+.msg-error {
+  color: #ef4444;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: left;
 }

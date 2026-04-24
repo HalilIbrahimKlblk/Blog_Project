@@ -7,10 +7,10 @@ const Admin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAdmin = sessionStorage.getItem("isAdmin");
+    const isAdmin = sessionStorage.getItem("auth");
 
     if (!isAdmin) {
-      navigate("/Login", { replace: true });
+      navigate("/login", { replace: true });
     }
   }, [navigate]);
 
