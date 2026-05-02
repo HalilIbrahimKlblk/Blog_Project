@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import "./Reset.css";
+import API_URL from "../../config/config";
 
 const Reset = () => {
     const [password, setPassword] = useState("");
@@ -32,7 +33,7 @@ const Reset = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8080/blog-api/v1/admin/reset-password",
+                API_URL.ADMIN.RESET,
                 {
                     token: token,
                     newPassword: password,

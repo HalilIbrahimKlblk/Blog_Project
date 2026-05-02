@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Admin.css";
+import "./Dashboard.css";
 
 const Admin = () => {
 
@@ -16,7 +16,7 @@ const Admin = () => {
 
   return (
     <div>
-      <h1>Admin Panelim</h1>
+      <p>Dashboard</p>
     </div>
   );
 };

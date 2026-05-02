@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.halilibrahim.dto.DtoAdmin;
 import com.halilibrahim.dto.DtoAdminHome;
+import com.halilibrahim.dto.DtoAdminInfo;
 import com.halilibrahim.dto.DtoAdminLogin;
 import com.halilibrahim.dto.DtoForgotPassword;
 import com.halilibrahim.dto.DtoResetPassword;
@@ -186,4 +187,18 @@ public class AdminServiceImpl implements IAdminService{
         
         mailSender.send(message);
     }
+	
+	@Override
+	public DtoAdminInfo getAdminInfo() {
+		Admin admin = adminRepository.findAll().stream().findFirst().orElseThrow(() -> new RuntimeException("Sisteme kayıtlı admin bulunamadı."));
+		
+		DtoAdminInfo dtoAdmin = new DtoAdminInfo();
+		
+		dtoAdmin.setName(admin.getName());
+		dtoAdmin.setSurname(admin.getSurname());
+		dtoAdmin.setUsername(admin.getUsername());
+		dtoAdmin.setImg(admin.getImg());
+		
+		return dtoAdmin;
+	}
 }

@@ -2,6 +2,7 @@ package com.halilibrahim.controller;
 
 import com.halilibrahim.dto.DtoAdmin;
 import com.halilibrahim.dto.DtoAdminHome;
+import com.halilibrahim.dto.DtoAdminInfo;
 import com.halilibrahim.dto.DtoAdminLogin;
 import com.halilibrahim.dto.DtoForgotPassword;
 import com.halilibrahim.dto.DtoResetPassword;
@@ -19,4 +20,6 @@ public interface IAdminController {
 	public boolean forgotPassword(DtoForgotPassword dtoForgotPassword);
     
     public boolean resetPassword(DtoResetPassword dtoResetPassword);
+    
+    public DtoAdminInfo getAdminInfo();
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.halilibrahim.controller.IAdminController;
 import com.halilibrahim.dto.DtoAdmin;
 import com.halilibrahim.dto.DtoAdminHome;
+import com.halilibrahim.dto.DtoAdminInfo;
 import com.halilibrahim.dto.DtoAdminLogin;
 import com.halilibrahim.dto.DtoForgotPassword;
 import com.halilibrahim.dto.DtoResetPassword;
@@ -61,5 +62,12 @@ public class AdminControllerImpl implements IAdminController{
 	@Override
 	public boolean resetPassword(@RequestBody DtoResetPassword dtoResetPassword) {
 		return adminService.resetPassword(dtoResetPassword);
+	}
+	
+	@GetMapping(path = "/info")
+	@Override
+	public DtoAdminInfo getAdminInfo() {
+		DtoAdminInfo admin = adminService.getAdminInfo();
+		return admin;
 	}
 }

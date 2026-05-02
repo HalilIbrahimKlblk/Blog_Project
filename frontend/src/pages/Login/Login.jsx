@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
+import API_URL from "../../config/config";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +20,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/blog-api/v1/admin/login",
+        API_URL.ADMIN.LOGIN,
         {
           username: username,
           password: password,
@@ -57,7 +58,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/blog-api/v1/admin/forgot-password",
+        API_URL.ADMIN.FORGOT,
         { email: resetEmail }
       );
 

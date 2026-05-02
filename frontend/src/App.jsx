@@ -3,24 +3,48 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
-import Admin from './pages/Admin/Admin';
 import Reset from './pages/Reset/Reset';
+import Login from './pages/Login/Login';
 import MainLayout from './layouts/MainLayout';
 import EmptyLayout from './layouts/EmptyLayout';
-import Login from './pages/Login/Login';
+import AdminLayout from './layouts/AdminLayout'; 
+import Dashboard from './pages/Admin/Dashboard/Dashboard';
+import Content from './pages/Admin/Content/Content';
+import Projects from './pages/Admin/Projects/Projects';
+import Blog from './pages/Admin/Blog/Blog';
+import Education from './pages/Admin/Education/Education';
+import Skills from './pages/Admin/Skills/Skills';
+import Users from './pages/Admin/Users/Users';
+import Settings from './pages/Admin/Settings/Settings';
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          {/* ================= PUBLIC ROTALAR ================= */}
           {/* Ana sayfa - Navbar ve Footer var */}
           <Route path="/" element={<MainLayout><Home /></MainLayout>} />
-          {/* 404 sayfası - Navbar ve Footer yok */}
-          <Route path="*" element={<EmptyLayout><NotFound /></EmptyLayout>} />
-          <Route path="/admin" element={<EmptyLayout><Admin /></EmptyLayout>} />
           <Route path="/reset-password" element={<EmptyLayout><Reset /></EmptyLayout>} />
           <Route path="/login" element={<EmptyLayout><Login /></EmptyLayout>} />
+
+          {/* ================= ADMIN ROTALARI ================= */}
+          <Route path="/admin" element={<AdminLayout />}>
+            {/* index: Sadece '/admin' adresine gidildiğinde Outlet içinde Dashboard açılır */}
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="content" element={<Content />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="blog" element={<Blog />} />
+            <Route path="education" element={<Education />} />
+            <Route path="skills" element={<Skills />} />
+            <Route path="users" element={<Users />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+
+          {/* Eşleşmeyen tüm yollar (*) için 404 sayfası */}
+          <Route path="*" element={<EmptyLayout><NotFound /></EmptyLayout>} />
+          
         </Routes>
       </BrowserRouter>
     </>
