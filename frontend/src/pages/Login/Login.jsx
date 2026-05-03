@@ -111,21 +111,31 @@ const Login = () => {
             />
           </span>
 
-          <span className="span">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsModalOpen(true); // Modalı açar
-              }}
-            >
-              Şifremi Unuttum?
-            </a>
-          </span>
+          <div className="span-grid">
+            <span className="span-left">
+              <a
+                href="/"
+              >
+                Ana Sayfaya Dön
+              </a>
+            </span>
+            <span className="span-right">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsModalOpen(true); // Modalı açar
+                }}
+              >
+                Şifremi Unuttum?
+              </a>
+            </span>
+          </div>
 
           <button className="submit" type="submit">
             Giriş Yap
           </button>
+
         </form>
       </div>
 
@@ -137,7 +147,7 @@ const Login = () => {
             <button className="close-btn" onClick={closeModal}>
               &times;
             </button>
-            
+
             <h3>Şifremi Unuttum</h3>
 
             {resetStatus === "success" ? (

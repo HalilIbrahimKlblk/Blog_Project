@@ -1,0 +1,168 @@
+/* Container */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+/* Ana Tablo Yapısı */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Tablo Başlığı (Header) */
+.custom-table thead {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.custom-table th {
+    text-align: left;
+    padding: 15px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 2px solid #eee;
+}
+
+/* Tablo Gövdesi (Body) */
+.custom-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #444;
+    vertical-align: middle;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f9fbff;
+}
+
+/* Butonlar Genel */
+.custom-table button {
+    padding: 8px 14px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* Güncelle Butonu */
+.custom-table .update-btn {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.custom-table .update-btn:hover {
+    background-color: #357bd8;
+    transform: translateY(-1px);
+}
+
+/* Sil Butonu */
+.custom-table .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.custom-table .delete-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+}
+
+/* HTML İçerik Düzenlemeleri */
+.table-html-content ul, 
+.table-html-content ol {
+    padding-left: 24px;
+    margin: 8px 0;
+}
+
+.table-html-content ul {
+    list-style-type: disc !important;
+}
+
+.table-html-content ol {
+    list-style-type: decimal !important;
+}
+
+.table-html-content li::before {
+    content: none !important;
+}
+
+.table-html-content li p {
+    margin: 0;
+    display: inline; 
+}
+
+/* Mobil Tasarım */
+@media screen and (max-width: 768px) {
+    .custom-table, 
+    .custom-table thead, 
+    .custom-table tbody, 
+    .custom-table th, 
+    .custom-table td, 
+    .custom-table tr {
+        display: block;
+    }
+
+    /* Başlıkları gizle */
+    .custom-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    /* Satırları karta dönüştür */
+    .custom-table tr {
+        border: 1px solid #e0e0e0;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        background: #fff;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    /* Hücre yapılandırması */
+    .custom-table td {
+        border: none;
+        border-bottom: 1px solid #f0f0f0;
+        position: relative;
+        padding-left: 45% !important;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        min-height: 45px;
+    }
+
+    /* Son hücrenin alt çizgisini kaldır */
+    .custom-table td:last-child {
+        border-bottom: none;
+    }
+
+    /* Sol tarafa kolon ismini ekle */
+    .custom-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 12px;
+        width: 40%;
+        font-weight: 700;
+        text-align: left;
+        color: #666;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+
+    /* Mobilde butonların genişliğini %100 yap */
+    .custom-table td button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}

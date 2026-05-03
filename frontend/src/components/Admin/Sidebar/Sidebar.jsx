@@ -14,6 +14,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         navigate(`${basePath}${path}`);
     };
 
+    // Sayfa yolu her değiştiğinde sidebar'ı kapatır
+    useEffect(() => {
+        setSidebarOpen(false);
+    }, [location.pathname, setSidebarOpen]);
+
     // Dışarı tıklayınca sidebar'ın kapanması
     useEffect(() => {
         const handleClickOutside = (event) => {

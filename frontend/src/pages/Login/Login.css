@@ -79,12 +79,29 @@
   box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
 }
 
-.span {
+.span-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.span-left {
+  font-size: 13px;
+  text-align: left;
+}
+
+.span-right {
   font-size: 13px;
   text-align: right;
 }
 
-.span a {
+.span-left a {
+  color: #04AA6D;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+.span-right a {
   color: #04AA6D;
   text-decoration: none;
   text-decoration: underline;

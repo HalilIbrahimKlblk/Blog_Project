@@ -27,7 +27,6 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
                     }
                 );
 
-                console.log("API DATA:", response.data);
                 setAdmin(response.data);
             } catch (error) {
                 console.error("Admin bilgisi alınamadı:", error);

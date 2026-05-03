@@ -4,3 +4,10 @@
     text-align: center;
     font-size: 0.9rem;
 }
+
+@media screen and (max-width: 768px) {
+    .admin-footer {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
