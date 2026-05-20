@@ -5,6 +5,8 @@ import Form from "../../../components/Form/Form";
 import Table from "../../../components/Table/Table";
 import API_URL from "../../../config/config";
 
+const IMAGE_BASE_PATH = "/img/";
+
 const Skills = () => {
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState({});
@@ -84,22 +86,48 @@ const Skills = () => {
 
   return (
     <div className="skills-page">
-      <h2>💡Becerilerim</h2>
+      <h2>💡 Becerilerim</h2>
 
-      <Form
-        fields={fields}
-        formData={formData}
-        setFormData={setFormData}
-        onSubmit={handleSubmit}
-        isEditing={isEditing}
-      />
+      <div className="form-preview-container">
+        <div className="form-section">
+          <Form
+            fields={fields}
+            formData={formData}
+            setFormData={setFormData}
+            onSubmit={handleSubmit}
+            isEditing={isEditing}
+          />
+        </div>
 
-      <Table
-        data={data}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        columnLabels={columnLabels}
-      />
+        <div className="preview-section">
+          <h3>Önizleme</h3>
+          <div className="preview-content">
+            {formData.img ? (
+              <>
+                <div className="preview-image-container">
+                  <img
+                    src={`${IMAGE_BASE_PATH}${formData.img}`}
+                    alt={formData.title || "Önizleme"}
+                    className="preview-image"
+                  />
+                  {formData.title && <p className="preview-title">{formData.title}</p>}
+                </div>
+              </>
+            ) : (
+              <p className="no-image-text">Resim adı girildiğinde önizleme burada görünecektir.</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="table-section">
+        <Table
+          data={data}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          columnLabels={columnLabels}
+        />
+      </div>
     </div>
   );
 };

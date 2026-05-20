@@ -1,0 +1,91 @@
+.education-page h2 {
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.education-top-container {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  align-items: flex-start;
+}
+
+.preview-section {
+  flex: 1;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  min-width: 300px;
+}
+
+.preview-section h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #495057;
+  font-size: 1.25rem;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 8px;
+}
+
+.preview-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+}
+
+/* ÖNİZLEME BİLEŞENİ STİLLERİ */
+.education-preview-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.education-preview-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-left: 4px solid #5b5b5b; 
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+.education-preview-list .date {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: bold;
+}
+
+.education-preview-list .content h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.2rem;
+  color: #343a40;
+}
+
+.education-preview-list .content p {
+  margin: 0;
+  color: #495057;
+  font-size: 1rem;
+}
+
+.no-data-text {
+  color: #adb5bd;
+  font-size: 0.95rem;
+  font-style: italic;
+  text-align: center;
+  margin: auto;
+}
+
+/* MOBİL UYUM (Ekran küçülünce alt alta geçerler) */
+@media (max-width: 768px) {
+  .education-top-container {
+    flex-direction: column;
+  }
+  .form-section,
+  .preview-section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

@@ -37,7 +37,12 @@
 }
 
 .card-skill {
-    margin-bottom: -41px;
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: flex-start; 
+  gap: 8px; 
+  flex: 1; 
+  margin-bottom: -41px;
 }
 
 .skill-badge {
