@@ -55,4 +55,9 @@ public class ProjectControllerImpl implements IProjectController{
 	public DtoProject getProjectById(@PathVariable Integer id) {
 		return projectService.getProjectById(id);
 	}
+	
+	@PutMapping(path = "/like/{id}")
+	public void likeProject(@PathVariable Integer id) {
+		projectService.increaseHeartCount(id);
+	}
 }

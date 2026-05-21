@@ -92,4 +92,16 @@ public class ProjectServiceImpl implements IProjectService{
 		}
 		return dto;
 	}
+	
+	@Override
+	public void increaseHeartCount(Integer id) {
+	    Project project = projectRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Proje bulunamadı id: " + id));
+	    
+	    int currentHearts = project.getHeart() != null ? project.getHeart() : 0;
+	    
+	    project.setHeart(currentHearts + 1);
+	    
+	    projectRepository.save(project);
+	}
 }

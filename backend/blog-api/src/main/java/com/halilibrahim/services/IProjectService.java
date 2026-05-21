@@ -15,4 +15,6 @@ public interface IProjectService {
 	public DtoProject updateProject(Integer id, DtoProject dtoProject);
 	
 	public DtoProject getProjectById(Integer id);
+	
+	public void increaseHeartCount(Integer id);
 }

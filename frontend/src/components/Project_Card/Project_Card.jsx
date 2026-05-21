@@ -3,20 +3,43 @@ import './Project_Card.css';
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const Project_Card = ({ img, title, description, skills, date, links = {}, likeSum }) => {
+// Props kısmına 'id' eklendi
+const Project_Card = ({ id, img, title, description, skills, date, links = {}, likeSum }) => {
 
     const imagePath = `/img/${img}`;
 
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(likeSum);
 
-    const handleLike = () => {
-        if (liked) {
-            setLikeCount(likeCount - 1);
-        } else {
-            setLikeCount(likeCount + 1);
+    const handleLike = async (e) => {
+        // Tıklamanın diğer elementlere yayılmasını engeller
+        e.stopPropagation();
+
+        const newLikedState = !liked;
+        const newLikeCount = newLikedState ? likeCount + 1 : likeCount - 1;
+
+        // 1. Kullanıcıyı bekletmemek için arayüzü anında güncelle (Optimistic UI)
+        setLiked(newLikedState);
+        setLikeCount(newLikeCount);
+
+        // 2. Backend'e sadece beğeni isteği gönder
+        try {
+            // Yeni yazdığın temiz endpoint'e sadece ID'yi parametre olarak yolluyoruz.
+            // Body (veri gövdesi) veya header göndermemize gerek kalmadı!
+            const response = await fetch(`http://localhost:8080/blog-api/v1/project/like/${id}`, {
+                method: 'PUT',
+            });
+
+            if (!response.ok) {
+                throw new Error('Beğeni kaydedilirken sunucu hatası oluştu');
+            }
+            
+        } catch (error) {
+            console.error("Beğeni kaydedilemedi:", error);
+            // 3. Sunucuda bir hata olursa (örn: internet koparsa) arayüzü eski haline döndür
+            setLiked(!newLikedState);
+            setLikeCount(liked ? likeCount + 1 : likeCount - 1);
         }
-        setLiked(!liked);
     };
 
     const icons = {
@@ -59,6 +82,7 @@ const Project_Card = ({ img, title, description, skills, date, links = {}, likeS
                 </div>
             </div>
             <div className="card-footer-row">
+                {/* onClick buraya bağlı */}
                 <div className="like-section" onClick={handleLike}>
                     <button className="like-btn">
                         {liked ? (

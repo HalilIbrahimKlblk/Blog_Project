@@ -15,4 +15,6 @@ public interface IProjectController {
 	public DtoProject updateProject(Integer id, DtoProject dtoProject);
 	
 	public DtoProject getProjectById(Integer id);
+	
+	public void likeProject(Integer id);
 }

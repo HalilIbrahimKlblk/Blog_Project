@@ -131,7 +131,6 @@ const Projects = () => {
 
       <div className="projects-top-container">
         
-        {/* SOL: FORM */}
         <div className="form-section">
           <Form
             fields={fields}
@@ -142,7 +141,6 @@ const Projects = () => {
           />
         </div>
 
-        {/* SAĞ: CANLI ÖNİZLEME */}
         <div className="preview-section">
           <h3>Önizleme</h3>
           <div className="preview-content">
@@ -152,7 +150,7 @@ const Projects = () => {
                 title={formData.title || "Proje Başlığı"}
                 description={formData.description || "Proje açıklaması buraya gelecek..."}
                 skills={previewSkills.length > 0 ? previewSkills : ["Örnek Yetenek"]}
-                date={safePreviewDate || "YYYY-MM-DD"} // 🚀 BURASI DÜZELTİLDİ
+                date={safePreviewDate || "YYYY-MM-DD"} 
                 links={previewLinks}
                 likeSum={Number(formData.heart) || 0}
               />

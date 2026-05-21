@@ -1,14 +1,168 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Home.css'
 import Education from '../../components/Education/Education'
 import Skill from '../../components/Skill/Skill'
 import Project_Card from '../../components/Project_Card/Project_Card';
 import Blog_Card from '../../components/Blog_Card/Blog_Card';
 import Contact from '../../components/Contact/Contact';
-import { skill_datas, education_datas, work_datas, blog_datas } from '../../data/data'
 
+// API Sabitleri
+const BASE_URL = "http://localhost:8080/blog-api/v1";
+const SKILL_URL = "/skill";
+const EDUCATION_URL = "/education";
+const BLOG_URL = "/blog";
+const PROJECT_URL = "/project";
 
 const Home = () => {
+
+    // Education verileri için State'ler
+    const [educations, setEducations] = useState([]);
+    const [isEducationsLoading, setIsEducationsLoading] = useState(true);
+    const [educationsError, setEducationsError] = useState(null);
+
+    // Skill verileri için State'ler
+    const [skills, setSkills] = useState([]);
+    const [isSkillsLoading, setIsSkillsLoading] = useState(true);
+    const [skillsError, setSkillsError] = useState(null);
+
+    // Blog verileri için State'ler
+    const [blogs, setBlogs] = useState([]);
+    const [isBlogsLoading, setIsBlogsLoading] = useState(true);
+    const [blogsError, setBlogsError] = useState(null);
+
+    // Project verileri için State'ler
+    const [projects, setProjects] = useState([]);
+    const [isProjectsLoading, setIsProjectsLoading] = useState(true);
+    const [projectsError, setProjectsError] = useState(null);
+
+    // Ekran genişliğine göre sütun sayısını belirleyecek State (Masonry Layout için)
+    const [columnCount, setColumnCount] = useState(3);
+
+    // Tarihi "Gün Ay Yıl" formatına çeviren fonksiyon (Örn: 15 Nisan 2026)
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        // Eğer geçersiz bir tarih formatı gelirse gelen string'i olduğu gibi bırakır
+        if (isNaN(date.getTime())) return dateString;
+
+        return date.toLocaleDateString('tr-TR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+
+    // Ekran boyutunu dinleyip sütun sayısını ayarlayan useEffect
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 768) setColumnCount(1);
+            else if (window.innerWidth < 992) setColumnCount(2);
+            else setColumnCount(3);
+        };
+        
+        handleResize(); // Sayfa ilk yüklendiğinde çalıştır
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Sayfa yüklendiğinde Education verilerini çek
+    useEffect(() => {
+        const fetchEducations = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}${EDUCATION_URL}/list`);
+                if (!response.ok) {
+                    throw new Error("Eğitim bilgileri yüklenemedi.");
+                }
+                const data = await response.json();
+                setEducations(data);
+            } catch (error) {
+                setEducationsError(error.message);
+                console.error("Education fetch error:", error);
+            } finally {
+                setIsEducationsLoading(false);
+            }
+        };
+
+        fetchEducations();
+    }, []);
+
+    // Sayfa yüklendiğinde Skill verilerini çek
+    useEffect(() => {
+        const fetchSkills = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}${SKILL_URL}/list`);
+                if (!response.ok) {
+                    throw new Error("Beceriler yüklenemedi.");
+                }
+                const data = await response.json();
+                setSkills(data);
+            } catch (error) {
+                setSkillsError(error.message);
+                console.error("Skill fetch error:", error);
+            } finally {
+                setIsSkillsLoading(false);
+            }
+        };
+
+        fetchSkills();
+    }, []);
+
+    // Sayfa yüklendiğinde Blog verilerini çek
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}${BLOG_URL}/list`);
+                if (!response.ok) {
+                    throw new Error("Blog yazıları yüklenemedi.");
+                }
+                const data = await response.json();
+
+                // Verileri tarihe göre yeniden eskiye (descending) sıralıyoruz
+                const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                setBlogs(sortedData);
+            } catch (error) {
+                setBlogsError(error.message);
+                console.error("Blog fetch error:", error);
+            } finally {
+                setIsBlogsLoading(false);
+            }
+        };
+
+        fetchBlogs();
+    }, []);
+
+    // Sayfa yüklendiğinde Project verilerini çek
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}${PROJECT_URL}/list`);
+                if (!response.ok) {
+                    throw new Error("Projeler yüklenemedi.");
+                }
+                const data = await response.json();
+                
+                // Projeleri tarihe göre yeniden eskiye sıralıyoruz
+                const sortedProjects = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+                setProjects(sortedProjects);
+                
+            } catch (error) {
+                setProjectsError(error.message);
+                console.error("Project fetch error:", error);
+            } finally {
+                setIsProjectsLoading(false);
+            }
+        };
+
+        fetchProjects();
+    }, []);
+
+    // Projeleri sütunlara soldan sağa sırayla dağıtma işlemi
+    const projectColumns = Array.from({ length: columnCount }, () => []);
+    projects.forEach((project, index) => {
+        projectColumns[index % columnCount].push(project);
+    });
+
     return (
         <div>
             <section className="hero">
@@ -39,6 +193,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
             <h2 className="section-title" id='about'><span>Hakkımda</span></h2>
             <div className="container">
                 <div className="about-content">
@@ -58,41 +213,56 @@ const Home = () => {
                         </div>
                         <p>Mersin Üniversitesi, Bilişim Sistemleri ve Teknolojileri son sınıf öğrencisiyim. Frontend, backend ve mobil teknolojiler alanında çalışan; kullanıcı odaklı, yenilikçi ve sürdürülebilir çözümler geliştirmeye odaklanan bir yazılım geliştiricisiyim. Öğrendiğim teknolojiler sayesinde modern kullanıcı arayüzleri tasarlıyor; ölçeklenebilir backend çözümleri geliştiriyorum. Çeşitli <b>teknofest</b> ve <b>tübitak</b> projelerinde görev alarak uçtan uca yazılım geliştirme ve donanım entegrasyonu konularında tecrübe edindim. Sektörün metodolojilerine hâkim bir takım oyuncusu olarak, teknolojiyle katma değer sağlayan projeler üretmeyi hedefliyorum.</p>
                         <div className="cv-box">
-                            <a href="../../public/Halil_İbrahim_Kalabalik.pdf" className="cv-btn" download target="_blank"><i className="fas fa-download"></i> Download CV</a>
+                            <a href="../../public/Halil_İbrahim_Kalabalik.pdf" className="cv-btn" download target="_blank" rel="noreferrer"><i className="fas fa-download"></i> Download CV</a>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div className='container'>
                 <div className='about-flex-content'>
                     <div className='about-flex-item'>
                         <h2 className='about-h2'>Eğitim Hayatım</h2>
                         <ul className='timeline'>
-                            {[...education_datas].map(([id, data]) => (
-                                <Education
-                                    key={id}
-                                    year={data.year}
-                                    title={data.title}
-                                    section={data.section}
-                                />
-                            ))}
+                            {isEducationsLoading ? (
+                                <p style={{ color: "white" }}>Yükleniyor...</p>
+                            ) : educationsError ? (
+                                <p style={{ color: "red" }}>{educationsError}</p>
+                            ) : (
+                                educations.map((edu) => (
+                                    <Education
+                                        key={edu.id}
+                                        year={edu.date}
+                                        title={edu.title}
+                                        section={edu.section}
+                                    />
+                                ))
+                            )}
                         </ul>
                     </div>
+
                     <div className='about-flex-item'>
                         <h2 className='about-h2'>Becerilerim</h2>
                         <div className='skills-container'>
-                            {[...skill_datas].map(([id, data]) => (
-                                <div key={id}>
-                                    <Skill
-                                        img={data.img}
-                                        title={data.title}
-                                    />
-                                </div>
-                            ))}
+                            {isSkillsLoading ? (
+                                <p style={{ color: "white" }}>Yükleniyor...</p>
+                            ) : skillsError ? (
+                                <p style={{ color: "red" }}>{skillsError}</p>
+                            ) : (
+                                skills.map((skill) => (
+                                    <div key={skill.id}>
+                                        <Skill
+                                            img={skill.img}
+                                            title={skill.title}
+                                        />
+                                    </div>
+                                ))
+                            )}
                         </div>
                     </div>
                 </div>
             </div>
+
             <div className="container">
                 <div className="info-cards">
                     <a className='card-link' href="mailto:halilkalabalik64@gmail.com">
@@ -103,7 +273,7 @@ const Home = () => {
                             </div>
                         </div>
                     </a>
-                    <a className='card-link'>
+                    <a className='card-link' href="#!">
                         <div className="info-card">
                             <i className="fas fa-map-marker-alt"></i>
                             <div>
@@ -111,7 +281,7 @@ const Home = () => {
                             </div>
                         </div>
                     </a>
-                    <a className='card-link' href="https://github.com/HalilIbrahimKlblk">
+                    <a className='card-link' href="https://github.com/HalilIbrahimKlblk" target="_blank" rel="noreferrer">
                         <div className="info-card">
                             <i className="fab fa-github"></i>
                             <div>
@@ -119,7 +289,7 @@ const Home = () => {
                             </div>
                         </div>
                     </a>
-                    <a className='card-link' href="https://www.linkedin.com/in/halil-ibrahim-kalabalik/">
+                    <a className='card-link' href="https://www.linkedin.com/in/halil-ibrahim-kalabalik/" target="_blank" rel="noreferrer">
                         <div className="info-card">
                             <i className="fab fa-linkedin"></i>
                             <div>
@@ -129,38 +299,58 @@ const Home = () => {
                     </a>
                 </div>
             </div>
+
             <h2 className="section-title" id='projects'><span>Projelerim</span></h2>
             <div className="container">
-                <div className="masonry">
-                    {[...work_datas].map(([id, data]) => (
-                        <div className="masonry-item" key={id}>
-                            <Project_Card
-                                img={data.img}
-                                title={data.title}
-                                description={data.description}
-                                skills={data.skills}
-                                date={data.date}
-                                links={data.links}
-                                likeSum={data.likeSum}
-                            />
-                        </div>
-                    ))}
-                </div>
+                {isProjectsLoading ? (
+                    <p style={{ color: "white" }}>Projeler yükleniyor...</p>
+                ) : projectsError ? (
+                    <p style={{ color: "red" }}>{projectsError}</p>
+                ) : (
+                    <div className="masonry-flex-container">
+                        {projectColumns.map((col, colIndex) => (
+                            <div className="masonry-col" key={colIndex}>
+                                {col.map((project) => (
+                                    <div className="masonry-item" key={project.id}>
+                                        <Project_Card
+                                            id={project.id}
+                                            img={project.img}
+                                            title={project.title}
+                                            description={project.description}
+                                            skills={project.skills}
+                                            date={formatDate(project.date)}
+                                            links={project.socialMedia}
+                                            likeSum={project.heart}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
+
             <h2 className="section-title" id='blog'><span>Blog</span></h2>
             <div className="container">
                 <div>
-                    {[...blog_datas].map(([id, data]) => (
-                        <div className="masonry-item" key={id}>
-                            <Blog_Card
-                                title={data.title}
-                                content={data.content}
-                                date={data.date}
-                            />
-                        </div>
-                    ))}
+                    {isBlogsLoading ? (
+                        <p style={{ color: "white" }}>Blog yazıları yükleniyor...</p>
+                    ) : blogsError ? (
+                        <p style={{ color: "red" }}>{blogsError}</p>
+                    ) : (
+                        blogs.map((blog) => (
+                            <div className="masonry-item" key={blog.id}>
+                                <Blog_Card
+                                    title={blog.title}
+                                    content={blog.description} 
+                                    date={formatDate(blog.date)}
+                                />
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
+
             <h2 className="section-title" id='contact'><span>İletişim</span></h2>
             <div className="container">
                 <Contact />
@@ -169,4 +359,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Home;
