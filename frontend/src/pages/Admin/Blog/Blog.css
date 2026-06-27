@@ -185,6 +185,34 @@
     outline: none !important;
 }
 
+
+/* ====== TABLO TAŞMA DÜZELTMESİ (Hatasız Versiyon) ====== */
+.blog-page {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.blog-page table {
+    width: 100%;
+    table-layout: fixed; /* Sütunların sınırsız uzamasını engeller */
+}
+
+/* Tablo hücrelerindeki içeriği tek satıra zorlayıp sonuna ... koyar */
+.blog-page td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+}
+
+/* Eğer hücre içine HTML (p, span vb) render ediliyorsa onları da tek satıra zorlar */
+.blog-page td * {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0; /* İçerikteki gereksiz paragraf boşluklarını sıfırlar */
+}
+
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
     .editor-wrapper {
@@ -197,5 +225,15 @@
 
     .form-section {
         width: 100%;
+    }
+
+    /* Mobilde tablonun daralıp bozulmaması için esnekliğe geri döndürüyoruz */
+    .blog-page table {
+        table-layout: auto; 
+    }
+    
+    .blog-page td, 
+    .blog-page td * {
+        white-space: normal; /* Mobilde yazılar alt alta inebilsin */
     }
 }

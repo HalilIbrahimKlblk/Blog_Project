@@ -74,35 +74,27 @@ const Blog = () => {
     editor?.commands.setContent("");
   };
 
-  // 📌 SUBMIT
-  // 📌 SUBMIT
-  // 📌 SUBMIT
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
 
-    // 🚀 GÜÇLENDİRİLMİŞ TARİH FORMATLAMA DÜZELTMESİ
     let formattedDate = null;
     
     if (formData.date) {
       if (typeof formData.date === "string") {
-        // Eğer gelen veri bir String ise ("2026-05-06T21:00:00.000Z" gibi)
         formattedDate = formData.date.split("T")[0];
       } else if (formData.date instanceof Date) {
-        // Eğer gelen veri bir Date objesi ise, saat dilimi kayması (timezone shift) 
-        // yaşamamak için yerel saate göre manuel formatlıyoruz
         const year = formData.date.getFullYear();
         const month = String(formData.date.getMonth() + 1).padStart(2, '0');
         const day = String(formData.date.getDate()).padStart(2, '0');
         formattedDate = `${year}-${month}-${day}`;
       } else {
-        // Farklı bir kütüphane (örn: Day.js, Moment.js) objesi olma ihtimaline karşı son çare
         formattedDate = String(formData.date).split("T")[0];
       }
     }
 
     const payload = {
       title: formData.title,
-      date: formattedDate, // Güvenli ve doğru formatlanmış tarihi gönderiyoruz
+      date: formattedDate, 
       description: editor?.getHTML() || ""
     };
 
@@ -123,7 +115,6 @@ const Blog = () => {
     }
   };
 
-  // 📌 EDIT
   const handleEdit = (item) => {
     setFormData({
       ...item,
@@ -144,7 +135,6 @@ const Blog = () => {
     }
   };
 
-  // 🔗 LINK
   const addLink = () => {
     const url = prompt("Link gir:");
     if (url) {
@@ -158,7 +148,6 @@ const Blog = () => {
 
       <div className="editor-wrapper">
         
-        {/* EDITOR */}
         <div className="editor-section">
           <label>Blog İçeriği</label>
 
@@ -231,7 +220,6 @@ const Blog = () => {
           <EditorContent editor={editor} className="tiptap-editor" />
         </div>
 
-        {/* FORM */}
         <div className="form-section">
           <Form
             fields={fields}
@@ -243,7 +231,6 @@ const Blog = () => {
         </div>
       </div>
 
-      {/* TABLE */}
       <Table
         data={data}
         onEdit={handleEdit}

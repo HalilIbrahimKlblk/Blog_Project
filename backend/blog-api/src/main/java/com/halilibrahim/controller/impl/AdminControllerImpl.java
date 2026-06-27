@@ -21,7 +21,6 @@ import com.halilibrahim.services.IAdminService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/blog-api/v1/admin")
 public class AdminControllerImpl implements IAdminController{

@@ -11,7 +11,6 @@ import com.halilibrahim.services.ISkillService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/blog-api/v1/skill")
 public class SkillControllerImpl implements ISkillController{

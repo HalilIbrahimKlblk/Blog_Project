@@ -21,5 +21,10 @@ public class DtoAdmin {
 	private String about;
 	private String location;
 	private String email;
+	private String github;
+	private String linkedln;
+	private String instagram;
+	private String x;
+	private String youtube;
 	private Map<String, String> socialMedia;
 }

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Navbar.css';
+import API_URL from '../../../config/config.js';
 
 const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
     const navigate = useNavigate();
@@ -18,9 +19,8 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
         const fetchAdmin = async () => {
             try {
                 const response = await axios.get(
-                    'http://localhost:8080/blog-api/v1/admin/info',
+                    API_URL.ADMIN.INFO,
                     {
-                        // Eğer token varsa buraya ekle
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem("token")}`
                         }

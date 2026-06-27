@@ -19,7 +19,6 @@ import com.halilibrahim.services.IEducationService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/blog-api/v1/education")
 public class EducationControllerImpl implements IEducationController{

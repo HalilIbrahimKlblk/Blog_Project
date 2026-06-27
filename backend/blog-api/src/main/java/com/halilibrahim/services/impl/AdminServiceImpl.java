@@ -11,6 +11,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.ArrayList;
 
 import com.halilibrahim.dto.DtoAdmin;
 import com.halilibrahim.dto.DtoAdminHome;
@@ -23,6 +25,7 @@ import com.halilibrahim.repository.AdminRepository;
 import com.halilibrahim.services.IAdminService;
 
 @Service
+@Transactional
 public class AdminServiceImpl implements IAdminService{
 
 	@Autowired
@@ -53,6 +56,11 @@ public class AdminServiceImpl implements IAdminService{
 		admin.setAbout(dtoAdmin.getAbout());
 		admin.setLocation(dtoAdmin.getLocation());
 		admin.setEmail(dtoAdmin.getEmail());
+		admin.setGithub(dtoAdmin.getGithub());
+		admin.setLinkedln(dtoAdmin.getLinkedln());
+		admin.setInstagram(dtoAdmin.getInstagram());
+		admin.setX(dtoAdmin.getX());
+		admin.setYoutube(dtoAdmin.getYoutube());
 		admin.setSocialMedia(dtoAdmin.getSocialMedia());
 		
 		Admin saveAdmin = adminRepository.save(admin);
@@ -62,33 +70,58 @@ public class AdminServiceImpl implements IAdminService{
 	}
 	
 	@Override
+	@Transactional 
 	public DtoAdmin updateAdmin(Integer id, DtoAdmin dtoAdmin) {
-		DtoAdmin dto = new DtoAdmin();
-		Optional<Admin> optional = adminRepository.findById(id);
-		
-		if (optional.isPresent()) {
-			Admin dbAdmin = optional.get();
-			
-			dbAdmin.setName(dtoAdmin.getName());
-			dbAdmin.setSurname(dtoAdmin.getSurname());
-			dbAdmin.setUsername(dtoAdmin.getUsername());
-			
-			if(dtoAdmin.getPassword() != null && !dtoAdmin.getPassword().trim().isEmpty()) {
-				dbAdmin.setPassword(passwordEncoder.encode(dtoAdmin.getPassword()));
-			}
-			
-			dbAdmin.setImg(dtoAdmin.getImg());
-			dbAdmin.setSections(dtoAdmin.getSections());
-			dbAdmin.setAbout(dtoAdmin.getAbout());
-			dbAdmin.setLocation(dtoAdmin.getLocation());
-			dbAdmin.setEmail(dtoAdmin.getEmail());
-			dbAdmin.setSocialMedia(dtoAdmin.getSocialMedia());
-			
-			Admin updatedAdmin = adminRepository.save(dbAdmin);
-			BeanUtils.copyProperties(updatedAdmin, dto);
-			return dto;
-		}
-		return null;
+	    System.out.println("REACT'TEN GELEN AD: " + dtoAdmin.getName());
+	    
+	    DtoAdmin dto = new DtoAdmin();
+	    
+	    // DİKKAT: findById(id) YERİNE SİSTEMDEKİ İLK ADMİNİ BULUYORUZ!
+	    // Çünkü React'ten gelen ID yanlış.
+	    Optional<Admin> optional = adminRepository.findAll().stream().findFirst();
+	    
+	    if (optional.isPresent()) {
+	        Admin dbAdmin = optional.get();
+	        
+	        System.out.println("GÜNCELLENECEK GERÇEK ADMİN BULUNDU. ID: " + dbAdmin.getId());
+	        
+	        if(dtoAdmin.getName() != null) dbAdmin.setName(dtoAdmin.getName());
+	        if(dtoAdmin.getSurname() != null) dbAdmin.setSurname(dtoAdmin.getSurname());
+	        if(dtoAdmin.getUsername() != null) dbAdmin.setUsername(dtoAdmin.getUsername());
+	        
+	        if(dtoAdmin.getPassword() != null && !dtoAdmin.getPassword().trim().isEmpty()) {
+	            dbAdmin.setPassword(passwordEncoder.encode(dtoAdmin.getPassword()));
+	        }
+	        
+	        if(dtoAdmin.getImg() != null) dbAdmin.setImg(dtoAdmin.getImg());
+	        if(dtoAdmin.getAbout() != null) dbAdmin.setAbout(dtoAdmin.getAbout());
+	        if(dtoAdmin.getLocation() != null) dbAdmin.setLocation(dtoAdmin.getLocation());
+	        if(dtoAdmin.getEmail() != null) dbAdmin.setEmail(dtoAdmin.getEmail());
+	        if(dtoAdmin.getGithub() != null) dbAdmin.setGithub(dtoAdmin.getGithub());
+	        if(dtoAdmin.getLinkedln() != null) dbAdmin.setLinkedln(dtoAdmin.getLinkedln());
+	        if(dtoAdmin.getInstagram() != null) dbAdmin.setInstagram(dtoAdmin.getInstagram());
+	        if(dtoAdmin.getX() != null) dbAdmin.setX(dtoAdmin.getX());
+	        if(dtoAdmin.getYoutube() != null) dbAdmin.setYoutube(dtoAdmin.getYoutube());
+	        
+	        if(dtoAdmin.getSections() != null) {
+	            dbAdmin.setSections(new ArrayList<>(dtoAdmin.getSections())); 
+	        }
+	        
+	        if(dtoAdmin.getSocialMedia() != null) {
+	             dbAdmin.setSocialMedia(dtoAdmin.getSocialMedia());
+	        }
+	        
+	        // Değişiklikleri kaydet
+	        Admin updatedAdmin = adminRepository.saveAndFlush(dbAdmin);
+	        
+	        BeanUtils.copyProperties(updatedAdmin, dto);
+	        System.out.println("BAŞARILI! UPDATE SORGUSU ATILDI.");
+	        
+	        return dto;
+	    }
+	    
+	    System.out.println("SİSTEMDE HİÇ ADMİN YOK!");
+	    return null;
 	}
 	
 	@Override
@@ -104,6 +137,11 @@ public class AdminServiceImpl implements IAdminService{
 		dtoAdmin.setSections(admin.getSections());
 		dtoAdmin.setLocation(admin.getLocation());
 		dtoAdmin.setEmail(admin.getEmail());
+		dtoAdmin.setGithub(admin.getGithub());
+		dtoAdmin.setLinkedln(admin.getLinkedln());
+		dtoAdmin.setInstagram(admin.getInstagram());
+		dtoAdmin.setX(admin.getX());
+		dtoAdmin.setYoutube(admin.getYoutube());
 		dtoAdmin.setSocialMedia(admin.getSocialMedia());
 		
 		return dtoAdmin;
@@ -143,7 +181,7 @@ public class AdminServiceImpl implements IAdminService{
         adminRepository.save(admin);
 
         // Mail gönder
-        String resetLink = "http://localhost:5173/reset-password?token=" + token;
+        String resetLink = "http://192.168.1.106:5173/reset-password?token=" + token;
         String subject = "Blog API - Şifre Sıfırlama Talebi";
         String message = "Merhaba,\n\nŞifrenizi sıfırlamak için aşağıdaki bağlantıya tıklayın. Bu bağlantı 15 dakika boyunca geçerlidir.\n\n" + resetLink;
 

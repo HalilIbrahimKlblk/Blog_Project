@@ -122,7 +122,6 @@ const Projects = () => {
     instagram: formData.instagram,
   };
 
-  // Önizleme için string formatlı tarih
   const safePreviewDate = getFormattedDate(formData.date);
 
   return (

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Project_Card.css';
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import API_URL from '../../config/config.js';
 
 // Props kısmına 'id' eklendi
 const Project_Card = ({ id, img, title, description, skills, date, links = {}, likeSum }) => {
@@ -26,7 +27,7 @@ const Project_Card = ({ id, img, title, description, skills, date, links = {}, l
         try {
             // Yeni yazdığın temiz endpoint'e sadece ID'yi parametre olarak yolluyoruz.
             // Body (veri gövdesi) veya header göndermemize gerek kalmadı!
-            const response = await fetch(`http://localhost:8080/blog-api/v1/project/like/${id}`, {
+            const response = await fetch(API_URL.PROJECT.LIKE(id), {
                 method: 'PUT',
             });
 

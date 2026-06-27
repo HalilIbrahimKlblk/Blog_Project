@@ -19,7 +19,6 @@ import com.halilibrahim.services.IProjectService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/blog-api/v1/project")
 public class ProjectControllerImpl implements IProjectController{

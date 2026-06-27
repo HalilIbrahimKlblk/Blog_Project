@@ -5,13 +5,7 @@ import Skill from '../../components/Skill/Skill'
 import Project_Card from '../../components/Project_Card/Project_Card';
 import Blog_Card from '../../components/Blog_Card/Blog_Card';
 import Contact from '../../components/Contact/Contact';
-
-// API Sabitleri
-const BASE_URL = "http://localhost:8080/blog-api/v1";
-const SKILL_URL = "/skill";
-const EDUCATION_URL = "/education";
-const BLOG_URL = "/blog";
-const PROJECT_URL = "/project";
+import API_URL from '../../config/config.js';
 
 const Home = () => {
 
@@ -69,7 +63,7 @@ const Home = () => {
     useEffect(() => {
         const fetchEducations = async () => {
             try {
-                const response = await fetch(`${BASE_URL}${EDUCATION_URL}/list`);
+                const response = await fetch(API_URL.EDUCATION.GET_ALL);
                 if (!response.ok) {
                     throw new Error("Eğitim bilgileri yüklenemedi.");
                 }
@@ -90,7 +84,7 @@ const Home = () => {
     useEffect(() => {
         const fetchSkills = async () => {
             try {
-                const response = await fetch(`${BASE_URL}${SKILL_URL}/list`);
+                const response = await fetch(API_URL.SKILL.GET_ALL);
                 if (!response.ok) {
                     throw new Error("Beceriler yüklenemedi.");
                 }
@@ -111,7 +105,7 @@ const Home = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await fetch(`${BASE_URL}${BLOG_URL}/list`);
+                const response = await fetch(API_URL.BLOG.GET_ALL);
                 if (!response.ok) {
                     throw new Error("Blog yazıları yüklenemedi.");
                 }
@@ -136,7 +130,7 @@ const Home = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await fetch(`${BASE_URL}${PROJECT_URL}/list`);
+                const response = await fetch(API_URL.PROJECT.GET_ALL);
                 if (!response.ok) {
                     throw new Error("Projeler yüklenemedi.");
                 }

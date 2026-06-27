@@ -57,6 +57,21 @@ public class Admin {
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@Column(name = "github", nullable = false)
+	private String github;
+	
+	@Column(name = "linkedln", nullable = false)
+	private String linkedln;
+	
+	@Column(name = "instagram", nullable = false)
+	private String instagram;
+	
+	@Column(name = "x", nullable = false)
+	private String x;
+	
+	@Column(name = "youtube", nullable = false)
+	private String youtube;
+	
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(name = "social_media", columnDefinition = "jsonb")
 	private Map<String, String> socialMedia;

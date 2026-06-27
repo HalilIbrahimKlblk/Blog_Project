@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8080/blog-api/v1";
+const BASE_URL = "http://192.168.1.106:8080/blog-api/v1";
 
 const ADMIN_URL = "/admin";
 const SKILL_URL = "/skill";
@@ -23,6 +23,7 @@ const API_URL = {
     DELETE: (id) => `${BASE_URL}${PROJECT_URL}/delete/${id}`,
     GET_ALL: `${BASE_URL}${PROJECT_URL}/list`,
     GET_BY_ID: (id) => `${BASE_URL}${PROJECT_URL}/list/${id}`,
+    LIKE: (id) => `${BASE_URL}${PROJECT_URL}/like/${id}`,
   },
 
   BLOG: {

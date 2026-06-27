@@ -19,7 +19,6 @@ import com.halilibrahim.services.IBlogService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/blog-api/v1/blog")
 public class BlogControllerImpl implements IBlogController{

@@ -194,3 +194,20 @@
   margin-bottom: 10px;
   text-align: left;
 }
+
+@media (max-width: 768px) {
+ .login-container {
+    max-height: 100vh;
+    height: 85vh;
+  }
+
+  .login-card {
+    width: 90%;
+    padding: 30px;
+  }
+
+  .modal-card {
+    width: 90%;
+    padding: 25px;
+  }
+}
