@@ -118,6 +118,7 @@ section {
   text-align: center;
   color: var(--bg-dark);
   scroll-margin-top: 90px;
+  margin-top: 2.5rem;
 }
 
 .section-title span {

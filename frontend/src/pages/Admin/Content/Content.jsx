@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Form from "../../../components/Form/Form";
 import Table from "../../../components/Table/Table";
 import './Content.css';
-import API_URL from '../../../config/config.js';
+import API_URL, { IMAGE_URL } from '../../../config/config.js';
 
 
 const Content = () => {
@@ -92,7 +92,6 @@ const Content = () => {
     { name: "name", label: "Ad", type: "text" },
     { name: "surname", label: "Soyad", type: "text" },
     { name: "email", label: "E-Posta", type: "text" },
-    { name: "img", label: "Profil Resmi (Dosya Adı)", type: "text" },
     { name: "location", label: "Konum", type: "text" },
     { name: "github", label: "GitHub Profili", type: "text" },
     { name: "linkedln", label: "LinkedIn Profili", type: "text" },
@@ -113,7 +112,7 @@ const Content = () => {
     /* Ana kapsayıcıya taşma önleyici in-line kural eklendi */
     <div className="content-container" style={{ maxWidth: "100%", overflowX: "hidden" }}>
       <div className="content-header">
-        <h2>👤 Admin Profili</h2>
+        <h2 className="content-h2">👤 Admin Profili</h2>
       </div>
 
       <div className="content-layout">
@@ -151,7 +150,7 @@ const Content = () => {
               <div className="preview-card" style={{ maxWidth: "100%", overflow: "hidden" }}>
                 <div className="preview-image-container">
                   <img
-                    src={`../img/${formData.img}`}
+                    src={`${IMAGE_URL}${formData.img}`}
                     alt="Profil"
                     className="preview-img"
                     onError={(e) => {

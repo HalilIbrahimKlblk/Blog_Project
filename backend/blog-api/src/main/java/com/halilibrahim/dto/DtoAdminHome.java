@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class DtoAdminHome {
 	private String name;
 	private String surname;
+	private String username;
 	private String img;
 	private List<String> sections;
 	private String about;

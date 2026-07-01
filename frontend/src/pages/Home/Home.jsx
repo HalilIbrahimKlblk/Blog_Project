@@ -5,9 +5,14 @@ import Skill from '../../components/Skill/Skill'
 import Project_Card from '../../components/Project_Card/Project_Card';
 import Blog_Card from '../../components/Blog_Card/Blog_Card';
 import Contact from '../../components/Contact/Contact';
-import API_URL from '../../config/config.js';
+import API_URL, { IMAGE_URL } from '../../config/config.js';
 
 const Home = () => {
+
+    // Admin verileri için State'ler
+    const [admin, setAdmin] = useState(null);
+    const [isAdminLoading, setIsAdminLoading] = useState(true);
+    const [adminError, setAdminError] = useState(null);
 
     // Education verileri için State'ler
     const [educations, setEducations] = useState([]);
@@ -57,6 +62,27 @@ const Home = () => {
         handleResize(); // Sayfa ilk yüklendiğinde çalıştır
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Sayfa yüklendiğinde Admin verilerini çek
+    useEffect(() => {
+        const fetchAdmin = async () => {
+            try {
+                const response = await fetch(API_URL.ADMIN.PROFILE);
+                if (!response.ok) {
+                    throw new Error("Admin bilgileri yüklenemedi.");
+                }
+                const data = await response.json();
+                setAdmin(data);
+            } catch (error) {
+                setAdminError(error.message);
+                console.error("Admin fetch error:", error);
+            } finally {
+                setIsAdminLoading(false);
+            }
+        };
+
+        fetchAdmin();
     }, []);
 
     // Sayfa yüklendiğinde Education verilerini çek
@@ -161,7 +187,7 @@ const Home = () => {
         <div>
             <section className="hero">
                 <div className="container hero-content">
-                    <h1>Merhaba, Ben <span className="gradient-text"> Halil İbrahim</span></h1>
+                    <h1>Merhaba, Ben <span className="gradient-text"> {admin?.name}</span></h1>
                     <p>Frontend, backend ve mobil teknolojiler alanında çalışan; kullanıcı odaklı, yenilikçi ve sürdürülebilir çözümler geliştirmeye odaklanan bir yazılım geliştiricisiyim.</p>
                     <div className="hero-btns">
                         <button
@@ -191,25 +217,41 @@ const Home = () => {
             <h2 className="section-title" id='about'><span>Hakkımda</span></h2>
             <div className="container">
                 <div className="about-content">
-                    <div className="about-left">
-                        <img src="../../public/img/profile.jpg" alt="Halil İbrahim Kalabalık" className="profile-pic" width={300} />
-                    </div>
-                    <div className="about-right">
-                        <div className="about-text">
-                            <h1 className="about-name">Halil İbrahim Kalabalık</h1>
-                            <h3 className="about-role">
-                                <span>Frontend</span>
-                                <span className="dot">•</span>
-                                <span>Backend</span>
-                                <span className="dot">•</span>
-                                <span>Mobile</span>
-                            </h3>
-                        </div>
-                        <p>Mersin Üniversitesi, Bilişim Sistemleri ve Teknolojileri son sınıf öğrencisiyim. Frontend, backend ve mobil teknolojiler alanında çalışan; kullanıcı odaklı, yenilikçi ve sürdürülebilir çözümler geliştirmeye odaklanan bir yazılım geliştiricisiyim. Öğrendiğim teknolojiler sayesinde modern kullanıcı arayüzleri tasarlıyor; ölçeklenebilir backend çözümleri geliştiriyorum. Çeşitli <b>teknofest</b> ve <b>tübitak</b> projelerinde görev alarak uçtan uca yazılım geliştirme ve donanım entegrasyonu konularında tecrübe edindim. Sektörün metodolojilerine hâkim bir takım oyuncusu olarak, teknolojiyle katma değer sağlayan projeler üretmeyi hedefliyorum.</p>
-                        <div className="cv-box">
-                            <a href="../../public/Halil_İbrahim_Kalabalik.pdf" className="cv-btn" download target="_blank" rel="noreferrer"><i className="fas fa-download"></i> Download CV</a>
-                        </div>
-                    </div>
+                    {isAdminLoading ? (
+                        <p style={{ color: "white", width: "100%", textAlign: "center" }}>Yükleniyor...</p>
+                    ) : adminError ? (
+                        <p style={{ color: "red", width: "100%", textAlign: "center" }}>{adminError}</p>
+                    ) : (
+                        <>
+                            <div className="about-left">
+                                {admin?.img && (
+                                    <img 
+                                        src={`${IMAGE_URL}${admin.img}`} 
+                                        alt={`${admin?.name || ''} ${admin?.surname || ''}`} 
+                                        className="profile-pic" 
+                                        width={300} 
+                                    />
+                                )}
+                            </div>
+                            <div className="about-right">
+                                <div className="about-text">
+                                    <h1 className="about-name">{`${admin?.name} ${admin?.surname}`}</h1>
+                                    <h3 className="about-role">
+                                        {admin?.sections && admin.sections.map((section, index) => (
+                                            <React.Fragment key={index}>
+                                                <span>{section}</span>
+                                                {index < admin.sections.length - 1 && <span className="dot">•</span>}
+                                            </React.Fragment>
+                                        ))}
+                                    </h3>
+                                </div>
+                                <p>{admin?.about}</p>
+                                <div className="cv-box">
+                                    <a href="../../public/Halil_İbrahim_Kalabalik.pdf" className="cv-btn" download target="_blank" rel="noreferrer"><i className="fas fa-download"></i> Download CV</a>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -259,7 +301,8 @@ const Home = () => {
 
             <div className="container">
                 <div className="info-cards">
-                    <a className='card-link' href="mailto:halilkalabalik64@gmail.com">
+                    {/* Linkler ve yazılar veritabanından çekiliyor */}
+                    <a className='card-link' href={`mailto:${admin?.email}`}>
                         <div className="info-card">
                             <i className="fas fa-envelope"></i>
                             <div>
@@ -267,15 +310,15 @@ const Home = () => {
                             </div>
                         </div>
                     </a>
-                    <a className='card-link' href="#!">
+                    <a className='card-link' href="#">
                         <div className="info-card">
                             <i className="fas fa-map-marker-alt"></i>
                             <div>
-                                <h4>Ankara</h4>
+                                <h4>{admin?.location}</h4>
                             </div>
                         </div>
                     </a>
-                    <a className='card-link' href="https://github.com/HalilIbrahimKlblk" target="_blank" rel="noreferrer">
+                    <a className='card-link' href={admin?.github} target="_blank" rel="noreferrer">
                         <div className="info-card">
                             <i className="fab fa-github"></i>
                             <div>
@@ -283,7 +326,7 @@ const Home = () => {
                             </div>
                         </div>
                     </a>
-                    <a className='card-link' href="https://www.linkedin.com/in/halil-ibrahim-kalabalik/" target="_blank" rel="noreferrer">
+                    <a className='card-link' href={admin?.linkedln} target="_blank" rel="noreferrer">
                         <div className="info-card">
                             <i className="fab fa-linkedin"></i>
                             <div>

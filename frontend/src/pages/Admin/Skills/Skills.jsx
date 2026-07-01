@@ -86,7 +86,7 @@ const Skills = () => {
 
   return (
     <div className="skills-page">
-      <h2>💡 Becerilerim</h2>
+      <h2 className="content-h2">💡 Becerilerim</h2>
 
       <div className="form-preview-container">
         <div className="form-section">

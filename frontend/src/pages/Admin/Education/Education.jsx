@@ -83,7 +83,7 @@ const Education = () => {
 
   return (
     <div className="education-page">
-      <h2>🎓 Eğitim Bilgilerim</h2>
+      <h2 className="content-h2">🎓 Eğitim Bilgilerim</h2>
 
       <div className="education-top-container">
         

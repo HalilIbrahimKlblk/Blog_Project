@@ -85,7 +85,7 @@ html, body {
   padding: 14px 15px;
   border-bottom: 1px solid #f1f3f5;
   text-align: left;
-  white-space: nowrap; /* Metinlerin alt satıra geçip ezilmesini önler */
+  white-space: nowrap; 
 }
 
 .table-responsive-wrapper th {
@@ -94,7 +94,6 @@ html, body {
   font-weight: 600;
 }
 
-/* --- FORM VE ÖN İZLEME DÜZENİ --- */
 .form-and-preview-container {
   display: flex;
   flex-wrap: wrap; 
@@ -119,11 +118,9 @@ html, body {
   font-size: 0.95rem;
   font-style: italic;
   text-align: center;
-  margin: auto;
-  padding: 40px 20px;
+  padding-top: 100px;
 }
 
-/* --- ÖN İZLEME KARTI DETAYLARI --- */
 .preview-card {
   display: flex;
   flex-direction: column;
@@ -138,8 +135,8 @@ html, body {
 }
 
 .preview-image-container img {
-  width: 130px;
-  height: 130px;
+  width: 185px;
+  height: 185px;
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid #ffffff; 
@@ -152,7 +149,7 @@ html, body {
 }
 
 .preview-details h4 {
-  font-size: 24px;
+  font-size: 30px;
   color: #212529;
   margin: 0 0 8px 0;
   font-weight: 700;
@@ -161,7 +158,7 @@ html, body {
 .preview-sections {
   color: #495057; 
   font-weight: 600;
-  font-size: 13px;
+  font-size: 16px;
   margin: 0 0 18px 0;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -172,19 +169,20 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  font-size: 14px;
+  font-size: 18px;
   color: #6c757d;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .preview-about {
-  font-size: 14.5px;
+  font-size: 17px;
   color: #495057;
-  line-height: 1.7;
+  line-height: 1.75;
   border-top: 1px solid #f1f3f5;
-  padding-top: 20px;
   width: 100%;
-  text-align: center;
+  text-align: justify;
+  padding: 10px;
+  padding-top: 20px;
 }
 
 /* --- SOSYAL MEDYA İKONLARI --- */
@@ -242,26 +240,25 @@ html, body {
     font-size: 22px;
   }
   
-  /* --- TABLO KAYMASINI KESİN ÇÖZEN KISIM --- */
   .table-responsive-wrapper {
-    overflow-x: hidden !important; /* Kaydırma çubuğunu iptal eder */
+    overflow-x: hidden !important; 
   }
 
   .table-responsive-wrapper table,
   .custom-table {
-    min-width: 100% !important; /* 600px kuralını ezer, ekrana tam sığdırır */
+    min-width: 100% !important; 
     width: 100% !important;
-    table-layout: fixed; /* Sütunların dışarı taşmasını zorla engeller */
+    table-layout: fixed; 
   }
 
   .table-responsive-wrapper td, 
   .table-responsive-wrapper th,
   .custom-table td, 
   .custom-table th {
-    padding: 12px 8px; /* Boşlukları daraltıyoruz */
-    font-size: 13px; /* Mobilde yazıları bir tık küçültüyoruz */
-    white-space: normal !important; /* Yazıların tek satırda uzamasını engeller */
-    word-break: break-word; /* Uzun kelimeleri (ör. e-posta) alt satıra böler */
+    padding: 12px 8px; 
+    font-size: 13px; 
+    white-space: normal !important; 
+    word-break: break-word; 
     overflow-wrap: break-word;
   }
 }

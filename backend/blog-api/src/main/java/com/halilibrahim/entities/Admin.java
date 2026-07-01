@@ -41,7 +41,7 @@ public class Admin {
 	@Column(name = "password", nullable = false)
 	private String password;
 	
-	@Column(name = "img", nullable = false, length = 50)
+	@Column(name = "img", nullable = false, length = 255)
 	private String img;
 	
 	@JdbcTypeCode(SqlTypes.JSON)

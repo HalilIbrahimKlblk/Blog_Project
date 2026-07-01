@@ -197,11 +197,17 @@
     table-layout: fixed; /* Sütunların sınırsız uzamasını engeller */
 }
 
+.blog-page th,
+.blog-page td {
+    text-align: center;
+}
+
 /* Tablo hücrelerindeki içeriği tek satıra zorlayıp sonuna ... koyar */
 .blog-page td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap; 
+    text-align: center; /* Hücre içeriğini sola hizalar */
 }
 
 /* Eğer hücre içine HTML (p, span vb) render ediliyorsa onları da tek satıra zorlar */
@@ -210,6 +216,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     margin: 0; /* İçerikteki gereksiz paragraf boşluklarını sıfırlar */
+    text-align: center;
 }
 
 

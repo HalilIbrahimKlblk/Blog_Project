@@ -12,7 +12,7 @@ const Login = () => {
   // --- Modal (Şifremi Unuttum) Stateleri ---
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
-  const [resetStatus, setResetStatus] = useState("idle"); // idle, loading, success, error
+  const [resetStatus, setResetStatus] = useState("idle"); 
   const [resetMessage, setResetMessage] = useState("");
 
   const handleLogin = async (e) => {

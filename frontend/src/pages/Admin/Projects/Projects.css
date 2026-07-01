@@ -3,7 +3,6 @@
   margin-bottom: 24px;
 }
 
-/* YAN YANA DÜZEN */
 .projects-top-container {
   display: flex;
   gap: 24px;
@@ -48,6 +47,26 @@
   margin: auto;
 }
 
+.table-section table {
+  width: 100%;
+  min-width: 900px; 
+  table-layout: fixed; 
+  border-collapse: collapse;
+}
+
+.table-section tr th {
+  text-align:center;
+}
+
+.table-section td {
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  padding: 12px 8px; 
+  max-width: 200px; 
+  text-align:center;
+}
+
 /* MOBİL UYUM */
 @media (max-width: 900px) {
   .projects-top-container {
@@ -58,4 +77,13 @@
     width: 100%;
     box-sizing: border-box;
   }
+
+  .table-section table td{
+    min-width: 100%; 
+  }
+
+  .content-h2{
+    font-size: 1.6rem;
+    margin-left: 16px;
+    margin-top: 10px; }
 }

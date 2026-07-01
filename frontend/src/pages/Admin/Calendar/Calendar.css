@@ -1,0 +1,240 @@
+.calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* height: 100%; kısmını kaldırdık ki içindeki kutular esnemesin, kendi sabit boyutunu korusun */
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header button {
+    padding: 8px 16px;
+    background-color: #f3f4f6;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #374151;
+    transition: background-color 0.2s;
+}
+
+.calendar-header button:hover {
+    background-color: #e5e7eb;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 1.5rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* 1fr yerine sabit bir yükseklik veriyoruz. Böylece aydaki hafta sayısı değişse de kutular aynı boyutta kalır */
+    grid-auto-rows: 80px;
+    gap: 10px;
+}
+
+.calendar-day-name {
+    text-align: center;
+    font-weight: bold;
+    color: #6b7280;
+    padding-bottom: 5px;
+}
+
+.calendar-day {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, background-color 0.2s;
+    /* Kutunun içindeki taşmaları gizlemek veya kaydırmak istersen overflow kullanabilirsin */
+    overflow: hidden;
+}
+
+.calendar-day:hover:not(.empty) {
+    border-color: #9ca3af;
+    background-color: #f9fafb;
+}
+
+.calendar-day.empty {
+    background-color: #f9fafb;
+    border: 1px dashed #e5e7eb;
+}
+
+/* BUGÜN İÇİN EKLENEN YENİ CLASS */
+.calendar-day.today {
+    border: 2px solid #10b981;
+    /* Belirgin yeşil/mavi border */
+    background-color: #ecfdf5;
+    /* Çok hafif arkaplan rengi */
+}
+
+.calendar-day.today .day-number {
+    color: #047857;
+    font-weight: 800;
+}
+
+.day-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+
+.event-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: auto;
+}
+
+.event-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.event-dot:hover {
+    transform: scale(1.2);
+}
+
+.event-dot.blog {
+    background-color: #3b82f6;
+    /* Mavi - Bloglar için */
+}
+
+.event-dot.project {
+    background-color: #10b981;
+    /* Yeşil - Projeler için */
+}
+
+.calendar-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+    font-size: 18px;
+    font-weight: 500;
+    color: #6b7280;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-status.error {
+    color: #ef4444;
+}
+
+.calendar-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.legend-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.legend-dot.blog {
+    background-color: #3b82f6;
+    /* Mavi */
+}
+
+.legend-dot.project {
+    background-color: #10b981;
+    /* Yeşil */
+}
+
+.stats-area {
+    font-size: 13px;
+    color: #6b7280;
+    text-align: right;
+}
+
+.stats-area p {
+    margin: 0 0 6px 0;
+}
+
+.stats-area p:last-child {
+    margin: 0;
+}
+
+.stats-area span {
+    font-weight: 600;
+    color: #374151;
+}
+
+@media (max-width: 768px) {
+    .calendar-span {
+        display: none;
+    }
+
+    .calendar-header h2 {
+        text-align: center;
+        font-size: 1.3rem;
+    }
+
+    .calendar-footer {
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center;
+        text-align: center;
+    }
+
+    .stats-area {
+        text-align: center; 
+        width: 100%;
+        margin-top: 5px; 
+    }
+
+    .calendar-grid {
+        grid-auto-rows: 90px;
+    }
+
+    .legend-area {
+        align-items: center; 
+        width: 100%;
+    }
+
+    .legend-item {
+        justify-content: center; 
+    }
+}

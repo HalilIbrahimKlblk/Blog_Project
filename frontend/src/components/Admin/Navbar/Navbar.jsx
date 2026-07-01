@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Navbar.css';
-import API_URL from '../../../config/config.js';
+import API_URL, { IMAGE_URL } from '../../../config/config.js';
 
 const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
     const navigate = useNavigate();
@@ -42,18 +42,23 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
                 <button className="admin-menu-btn" onClick={toggleSidebar}>
                     <span className="material-symbols-outlined">menu</span>
                 </button>
-                <div className="admin-search-bar">
-                    <span className="material-symbols-outlined admin-search-icon">search</span>
-                    <input type="text" placeholder="Sayfada ara..." />
+                <div className="admin-page-title">
+                    <h4>Admin Yönetim Paneli</h4>
                 </div>
             </div>
 
             <div className="admin-right-section">
                 <div className="admin-icon-group">
-                    <span className="material-symbols-outlined admin-nav-icon" title='Bildirimler'>
+                    <span 
+                    className="material-symbols-outlined admin-nav-icon" 
+                    onClick={() => navigate('/admin/settings')}
+                    title='Bildirimler'>
                         notifications
                     </span>
-                    <span className="material-symbols-outlined admin-nav-icon" title='Mesajlar'>
+                    <span
+                        className="material-symbols-outlined admin-nav-icon"
+                        onClick={() => window.open('https://mail.google.com/', '_blank')}
+                        title='Mail'>
                         mail
                     </span>
                     <span
@@ -67,7 +72,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
 
                 <div className="admin-profile">
                     <img
-                        src={`/img/${admin.img}`}
+                        src={`${IMAGE_URL}${admin.img}`}
                         alt="Profil"
                         className="admin-profile-pic"
                     />
@@ -76,7 +81,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
                         <span className="admin-profile-role">{admin.username || "Username"}</span>
                     </div>
                 </div>
-            </div> 
+            </div>
         </header>
     );
 };

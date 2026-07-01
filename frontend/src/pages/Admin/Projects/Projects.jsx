@@ -19,16 +19,15 @@ const Projects = () => {
     { name: "github", label: "GitHub", type: "text" },
     { name: "linkedin", label: "LinkedIn", type: "text" },
     { name: "instagram", label: "Instagram", type: "text" },
-    { name: "heart", label: "Beğeni Sayısı", type: "number" },
     { name: "date", label: "Tarih", type: "date" },
   ];
 
   const columnLabels = {
     img: "Resim Yolu",
     title: "Proje Başlığı",
-    description: "Proje Açıklaması",
+    //description: "Proje Açıklaması",
     skills: "Proje Becerileri",
-    socialMedia: "Sosyal Medya",
+    //socialMedia: "Sosyal Medya",
     heart: "Beğeni Sayısı",
     date: "Tarih",
   };
@@ -126,7 +125,7 @@ const Projects = () => {
 
   return (
     <div className="projects-page">
-      <h2>🗂️ Projelerim</h2>
+      <h2 className="content-h2">🗂️ Projelerim</h2>
 
       <div className="projects-top-container">
         

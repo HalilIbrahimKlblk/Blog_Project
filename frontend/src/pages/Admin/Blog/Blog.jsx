@@ -144,7 +144,7 @@ const Blog = () => {
 
   return (
     <div className="blog-page">
-      <h2>💻 Yazılım Blogum</h2>
+      <h2 className="content-h2">💻 Yazılım Blogum</h2>
 
       <div className="editor-wrapper">
         

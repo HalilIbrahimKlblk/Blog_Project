@@ -1,5 +1,6 @@
 package com.halilibrahim.services.impl;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -12,17 +13,21 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.ArrayList;
 
 import com.halilibrahim.dto.DtoAdmin;
 import com.halilibrahim.dto.DtoAdminHome;
 import com.halilibrahim.dto.DtoAdminInfo;
 import com.halilibrahim.dto.DtoAdminLogin;
+import com.halilibrahim.dto.DtoChangePassword;
 import com.halilibrahim.dto.DtoForgotPassword;
 import com.halilibrahim.dto.DtoResetPassword;
 import com.halilibrahim.entities.Admin;
 import com.halilibrahim.repository.AdminRepository;
 import com.halilibrahim.services.IAdminService;
+import com.halilibrahim.services.IFileService;
 
 @Service
 @Transactional
@@ -36,6 +41,9 @@ public class AdminServiceImpl implements IAdminService{
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private IFileService fileService;
 	
 	@Value("${spring.mail.username}")
 	private String senderEmail;
@@ -132,6 +140,7 @@ public class AdminServiceImpl implements IAdminService{
 		
 		dtoAdmin.setName(admin.getName());
 		dtoAdmin.setSurname(admin.getSurname());
+		dtoAdmin.setUsername(admin.getUsername());
 		dtoAdmin.setImg(admin.getImg());
 		dtoAdmin.setAbout(admin.getAbout());
 		dtoAdmin.setSections(admin.getSections());
@@ -238,5 +247,51 @@ public class AdminServiceImpl implements IAdminService{
 		dtoAdmin.setImg(admin.getImg());
 		
 		return dtoAdmin;
+	}
+	
+	@Override
+	public String updateProfileImage(MultipartFile file) throws IOException {
+	    // 1. Sistemdeki kayıtlı admini bul (Tıpkı diğer metotlarınızdaki gibi)
+	    Admin admin = adminRepository.findAll().stream().findFirst()
+	            .orElseThrow(() -> new RuntimeException("Sisteme kayıtlı admin bulunamadı."));
+
+	    // 2. Dosyayı kaydet ve yeni benzersiz adı al
+	    String newImageName = fileService.saveImage(file);
+
+	    // 3. Adminin resmini güncelle ve kaydet
+	    admin.setImg(newImageName);
+	    adminRepository.save(admin);
+
+	    // 4. Yeni dosya adını controller'a dön
+	    return newImageName;
+	}
+	
+	
+	@Override
+	@Transactional
+	public boolean changePassword(DtoChangePassword dto) {
+	    Optional<Admin> optional = adminRepository.findAll().stream().findFirst();
+	    
+	    if (optional.isEmpty()) {
+	        System.out.println("Sistemde admin bulunamadı!");
+	        return false;
+	    }
+	    
+	    Admin dbAdmin = optional.get();
+	    
+	    boolean isPasswordMatch = passwordEncoder.matches(dto.getOldPassword(), dbAdmin.getPassword());
+	    
+	    if (!isPasswordMatch) {
+	        System.out.println("Eski şifre hatalı girildi!");
+	        return false; 
+	    }
+	    
+	    String hashedNewPassword = passwordEncoder.encode(dto.getNewPassword());
+	    dbAdmin.setPassword(hashedNewPassword);
+	    
+	    adminRepository.save(dbAdmin);
+	    System.out.println("Şifre başarıyla güncellendi.");
+	    
+	    return true;
 	}
 }

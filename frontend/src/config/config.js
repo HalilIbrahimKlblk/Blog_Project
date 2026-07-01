@@ -1,5 +1,7 @@
 const BASE_URL = "http://192.168.1.106:8080/blog-api/v1";
 
+export const IMAGE_URL = "http://192.168.1.106:8080/uploads/img/";
+
 const ADMIN_URL = "/admin";
 const SKILL_URL = "/skill";
 const EDUCATION_URL = "/education";
@@ -11,10 +13,12 @@ const API_URL = {
     SAVE: `${BASE_URL}${ADMIN_URL}/save`,
     INFO: `${BASE_URL}${ADMIN_URL}/info`,
     PROFILE: `${BASE_URL}${ADMIN_URL}/profile`,
+    PROFILE_FILE: `${BASE_URL}${ADMIN_URL}/profile-file`,
     UPDATE: (id) => `${BASE_URL}${ADMIN_URL}/update/${id}`,
     LOGIN: `${BASE_URL}${ADMIN_URL}/login`,
     FORGOT: `${BASE_URL}${ADMIN_URL}/forgot-password`,
     RESET: `${BASE_URL}${ADMIN_URL}/reset-password`,
+    CHANGE: `${BASE_URL}${ADMIN_URL}/change-password`,
   },
 
   PROJECT: {

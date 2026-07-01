@@ -70,9 +70,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     <li onClick={() => handleNavigation('/skills')}>💡 Becerilerim</li>
                 </ul>
 
-                <li onClick={() => handleNavigation('/users')}>
-                    <span className="material-symbols-outlined">group</span>
-                    <span className="sidebar-menu-text">Kullanıcılar</span>
+                <li onClick={() => handleNavigation('/calendar')}>
+                    <span className="material-symbols-outlined">calendar_today</span>
+                    <span className="sidebar-menu-text">Takvim</span>
                 </li>
 
                 <li onClick={() => handleNavigation('/settings')}>

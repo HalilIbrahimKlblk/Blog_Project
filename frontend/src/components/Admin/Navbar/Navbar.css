@@ -14,28 +14,10 @@
     gap: 1rem;
 }
 
-.admin-search-bar {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 0.4rem 0.8rem;
-    border-radius: 10px;
-}
-
-.admin-search-bar input {
-    border: none;
-    outline: none;
-    margin-left: 0.5rem;
-    font-size: 0.95rem;
-    background: none;
-}
-
-.admin-search-icon {
-    color: #888;
-    /* İkon ile input arasında biraz daha tatlı bir duruş için eklenebilir: */
-    display: flex;
-    align-items: center;
+.admin-page-title h4 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #333;
 }
 
 .admin-menu-btn {
@@ -114,11 +96,12 @@
 }
 
 @media (max-width: 768px) {
-    .admin-search-bar {
+
+    .admin-profile-info {
         display: none;
     }
 
-    .admin-profile-info {
+    .admin-page-title h4 {
         display: none;
     }
 }

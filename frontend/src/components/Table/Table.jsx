@@ -4,7 +4,9 @@ import "./Table.css";
 const Table = ({ data, onEdit, onDelete, columnLabels }) => {
   if (!data || data.length === 0) return <p>Veri yok</p>;
 
-  const columns = Object.keys(data[0]).filter((key) => key !== "__v");
+  const columns = columnLabels 
+  ? Object.keys(columnLabels) 
+  : Object.keys(data[0]).filter((key) => key !== "__v" && key !== "_id" && key !== "id");
 
   // İçeriği temizleyip 100 karakterde kesen fonksiyon
   const formatContent = (value, key) => {

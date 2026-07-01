@@ -1,0 +1,328 @@
+/* --- Genel Konteyner --- */
+.settings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #111827;
+}
+
+.settings-container .settings-header {
+  margin-bottom: 2rem;
+}
+
+/* --- Bildirim Mesajları (Alerts) --- */
+.settings-container .alert {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.settings-container .alert.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.settings-container .alert.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Layout (Izgara Sistemi) --- */
+.settings-container .settings-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* --- Kart Tasarımı --- */
+.settings-container .card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  margin-bottom: -0.5rem;
+}
+
+.settings-container .card h3 {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827;
+}
+
+/* --- Profil Kartı (Sol Kolon) --- */
+.settings-container .profile-card {
+  display: flex; /* Dikey flex container yap */
+  flex-direction: column; /* Öğeleri dikey istifle */
+  align-items: center; /* Öğeleri yatayda ortala */
+  text-align: center; /* Metni ortala */
+  margin-bottom: 2rem; /* Kartlar arasında boşluk bırak */
+}
+
+.settings-container .profile-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0; /* Boşluğu butona kaydır */
+}
+
+.settings-container .profile-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.settings-container .profile-placeholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: #4f46e5;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.settings-container .profile-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+
+.settings-container .profile-role {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+
+
+/* Sosyal Medya İkonları */
+.settings-container .social-links-display {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 10px; /* Butondan gelen boşluğu kullan */
+  flex-wrap: wrap;
+}
+
+.settings-container .social-links-display a {
+  color: #6b7280;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f3f4f6;
+}
+
+.settings-container .social-links-display a:hover {
+  color: #4f46e5;
+  background-color: #e0e7ff;
+  transform: translateY(-2px);
+}
+
+/* --- Form Elemanları (Sağ Kolon) --- */
+.settings-container .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.settings-container .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+
+.settings-container .form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.settings-container .form-group input,
+.settings-container .form-group textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #111827;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.settings-container .form-group input:focus,
+.settings-container .form-group textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.settings-container .form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.settings-container .char-count {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.settings-container .divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 2rem 0;
+}
+
+/* --- Butonlar --- */
+.settings-container button {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-container button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.settings-container .upload-btn {
+  width: max-content; /* Genişliği içeriğine göre ayarla */
+  margin: 1.25rem auto; /* Yatayda otomatik marjin ile ortala, dikeyde boşluk ekle */
+  padding: 0.75rem 1.5rem; /* Butonun iç boşluğunu artır */
+  font-size: 0.875rem;
+}
+
+.settings-container .btn-outline {
+  background-color: transparent;
+  color: #4f46e5;
+  border: 1px solid #4f46e5;
+}
+
+.settings-container .btn-outline:hover:not(:disabled) {
+  background-color: #4f46e5;
+  color: #fff;
+}
+
+.settings-container .btn-primary {
+  background-color: #4f46e5;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+}
+
+.settings-container .btn-primary:hover:not(:disabled) {
+  background-color: #4338ca;
+  transform: translateY(-1px);
+}
+
+.settings-container .btn-danger {
+  background-color: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+}
+
+.settings-container .btn-danger:hover:not(:disabled) {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+.settings-container .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+/* --- Profil Sections (Bölümler) Stilleri --- */
+.profile-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Etiketler arası boşluk */
+  justify-content: center; /* Ortalamak için, sola yaslı isterseniz flex-start yapın */
+  margin: 17px 0;
+}
+
+.section-badge {
+  background-color: #f1f5f9; /* Hafif gri/mavi arka plan */
+  color: #475569; /* Koyu slate rengi yazı */
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px; /* Oval (hap) görünümü */
+  border: 1px solid #e2e8f0;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.section-badge:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+  transform: translateY(-1px); /* Üzerine gelince hafif yukarı kalkma efekti */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Responsive (Mobil Uyumluluk) --- */
+@media (max-width: 992px) {
+  .settings-container .settings-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .settings-container .settings-sidebar {
+    order: -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .settings-container {
+    padding: 1rem;
+  }
+  
+  .settings-container .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .settings-container .form-actions {
+    justify-content: center;
+  }
+  
+  .settings-container .btn-primary, 
+  .settings-container .btn-danger {
+    width: 100%;
+  }
+}
