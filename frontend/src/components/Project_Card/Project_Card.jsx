@@ -4,7 +4,6 @@ import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import API_URL from '../../config/config.js';
 
-// Props kısmına 'id' eklendi
 const Project_Card = ({ id, img, title, description, skills, date, links = {}, likeSum }) => {
 
     const imagePath = `/img/${img}`;
@@ -13,20 +12,15 @@ const Project_Card = ({ id, img, title, description, skills, date, links = {}, l
     const [likeCount, setLikeCount] = useState(likeSum);
 
     const handleLike = async (e) => {
-        // Tıklamanın diğer elementlere yayılmasını engeller
         e.stopPropagation();
 
         const newLikedState = !liked;
         const newLikeCount = newLikedState ? likeCount + 1 : likeCount - 1;
 
-        // 1. Kullanıcıyı bekletmemek için arayüzü anında güncelle (Optimistic UI)
         setLiked(newLikedState);
         setLikeCount(newLikeCount);
 
-        // 2. Backend'e sadece beğeni isteği gönder
         try {
-            // Yeni yazdığın temiz endpoint'e sadece ID'yi parametre olarak yolluyoruz.
-            // Body (veri gövdesi) veya header göndermemize gerek kalmadı!
             const response = await fetch(API_URL.PROJECT.LIKE(id), {
                 method: 'PUT',
             });
@@ -37,7 +31,6 @@ const Project_Card = ({ id, img, title, description, skills, date, links = {}, l
             
         } catch (error) {
             console.error("Beğeni kaydedilemedi:", error);
-            // 3. Sunucuda bir hata olursa (örn: internet koparsa) arayüzü eski haline döndür
             setLiked(!newLikedState);
             setLikeCount(liked ? likeCount + 1 : likeCount - 1);
         }
@@ -83,7 +76,6 @@ const Project_Card = ({ id, img, title, description, skills, date, links = {}, l
                 </div>
             </div>
             <div className="card-footer-row">
-                {/* onClick buraya bağlı */}
                 <div className="like-section" onClick={handleLike}>
                     <button className="like-btn">
                         {liked ? (

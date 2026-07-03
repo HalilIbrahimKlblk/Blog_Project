@@ -6,7 +6,7 @@
     --bg-color: #ffffff;
     --text-color: #0f172a;
     --accent-color: #475569;
-    --nav-height: 80px;
+    --nav-height: 70px;
 }
 
 .navbar {
@@ -17,10 +17,20 @@
     padding: 0 2rem;
     background-color: var(--bg-color);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    z-index: 1000;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    font-family: 'Segoe UI', sans-serif;
+    animation: hideNavOnScroll linear forwards;
+    animation-timeline: scroll();
+    animation-range: 0px 300px; 
+}
+
+
+@keyframes hideNavOnScroll {
+    to {
+        transform: translateY(-100%);
+    }
 }
 
 .navbar-left {
@@ -29,7 +39,7 @@
 }
 
 .navbar-left img {
-    height: 65px;
+    height: 62.5px;
     display: block;
     transition: transform 0.3s;
     margin-left: -10px;
@@ -127,6 +137,7 @@
     .navbar {
         padding: 0 1.5rem;
         position: sticky;
+        height: 60px;
     }
 
     .navbar-toggle {
@@ -134,7 +145,7 @@
     }
 
     .navbar-left img {
-        height: 55px;
+        height: 50px;
     }
 
     .navbar-right {
@@ -153,6 +164,7 @@
         transition: all 0.3s ease-in-out;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: -1rem;
     }
 
     .navbar-right.open {

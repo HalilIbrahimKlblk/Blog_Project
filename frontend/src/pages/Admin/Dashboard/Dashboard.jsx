@@ -32,7 +32,7 @@ const Dashboard = () => {
         const educations = await eduRes.json();
         const skills = await skillRes.json();
 
-        // 1. İstatistikleri Güncelle
+        // İstatistikleri Güncelle
         setStats({
           blogCount: blogs.length || 0,
           projectCount: projects.length || 0,
@@ -40,33 +40,30 @@ const Dashboard = () => {
           skillCount: skills.length || 0
         });
 
-        // 2. En Çok Beğenilen 5 Projeyi Ayarla ('heart' değerine göre)
+        // En Çok Beğenilen 5 Projeyi Al
         const sortedByLikes = [...projects]
           .sort((a, b) => (b.heart || 0) - (a.heart || 0))
           .slice(0, 5);
         setPopularProjects(sortedByLikes);
 
-        // 3. Son Eklenen 3 Proje
+        // Son Eklenen 3 Proje
         const latestProjects = [...projects]
           .sort((a, b) => {
-            // Önce 'createdAt' veya 'date' var mı diye bak
+            // Tarihe göre sırala
             const dateA = new Date(a.createdAt || a.date).getTime();
             const dateB = new Date(b.createdAt || b.date).getTime();
-            if (dateA && dateB) return dateB - dateA; // Tarihe göre büyükten küçüğe
-            
-            // Tarih yoksa ID değerine göre büyükten küçüğe sırala
+            if (dateA && dateB) return dateB - dateA; 
             return b.id - a.id; 
           })
           .slice(0, 3);
         setRecentProjects(latestProjects);
 
-        // 4. Son Eklenen 3 Blog Yazısı 
+        // Son Eklenen 3 Blog Yazısı 
         const latestBlogs = [...blogs]
           .sort((a, b) => {
             const dateA = new Date(a.createdAt || a.date).getTime();
             const dateB = new Date(b.createdAt || b.date).getTime();
             if (dateA && dateB) return dateB - dateA;
-            
             return b.id - a.id; 
           })
           .slice(0, 3);
@@ -90,13 +87,6 @@ const Dashboard = () => {
 
       {/* İstatistik Kartları */}
       <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-icon blog-icon">📝</div>
-          <div className="stat-details">
-            <h3>Blog Yazıları</h3>
-            <p className="stat-number">{stats.blogCount}</p>
-          </div>
-        </div>
 
         <div className="stat-card">
           <div className="stat-icon project-icon">💻</div>
@@ -107,10 +97,10 @@ const Dashboard = () => {
         </div>
 
         <div className="stat-card">
-          <div className="stat-icon education-icon">🎓</div>
+          <div className="stat-icon blog-icon">📝</div>
           <div className="stat-details">
-            <h3>Eğitimler</h3>
-            <p className="stat-number">{stats.educationCount}</p>
+            <h3>Blog Yazıları</h3>
+            <p className="stat-number">{stats.blogCount}</p>
           </div>
         </div>
 
@@ -121,19 +111,26 @@ const Dashboard = () => {
             <p className="stat-number">{stats.skillCount}</p>
           </div>
         </div>
+
+        <div className="stat-card">
+          <div className="stat-icon education-icon">🎓</div>
+          <div className="stat-details">
+            <h3>Eğitimler</h3>
+            <p className="stat-number">{stats.educationCount}</p>
+          </div>
+        </div>
       </div>
 
-      {/* Hızlı Erişim Menüsü */}
       <div className="quick-actions-section">
         <h3>Hızlı İşlemler</h3>
         <div className="quick-actions-grid">
           <button className="action-btn" onClick={() => navigate('/admin/projects')}>
             <span className="action-icon">➕</span>
-            Yeni Proje Ekle
+            Proje Ekle
           </button>
           <button className="action-btn" onClick={() => navigate('/admin/blog')}>
             <span className="action-icon">✍️</span>
-            Yeni Blog Yaz
+            Blog Ekle
           </button>
           <button className="action-btn" onClick={() => navigate('/admin/skills')}>
             <span className="action-icon">💡</span>
@@ -146,7 +143,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Grafik Alanı: En Çok Beğenilen Projeler */}
       <div className="dashboard-chart-section">
         <div className="widget-box full-width">
           <div className="widget-header">
@@ -158,7 +154,6 @@ const Dashboard = () => {
                 {popularProjects.map((project) => {
                   const heartCount = project.heart || 0;
                   const barWidth = maxHearts > 0 ? (heartCount / maxHearts) * 100 : 0;
-                  
                   return (
                     <div className="chart-row" key={project.id}>
                       <div className="chart-label" title={project.title}>

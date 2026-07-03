@@ -52,7 +52,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
                     <span 
                     className="material-symbols-outlined admin-nav-icon" 
                     onClick={() => navigate('/admin/settings')}
-                    title='Bildirimler'>
+                    title='Sosyal Medya'>
                         notifications
                     </span>
                     <span

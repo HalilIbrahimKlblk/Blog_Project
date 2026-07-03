@@ -43,6 +43,7 @@
   gap: 8px; 
   flex: 1; 
   margin-bottom: -41px;
+  cursor: default;
 }
 
 .skill-badge {

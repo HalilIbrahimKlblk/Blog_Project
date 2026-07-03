@@ -49,7 +49,7 @@ public class Project {
     private Map<String, String> socialMedia;
     
 	@Column(name = "heart", nullable = false)
-	private Integer heart;
+	private Integer heart = 0;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "date", nullable = false)

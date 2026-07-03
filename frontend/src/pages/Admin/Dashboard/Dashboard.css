@@ -40,6 +40,7 @@
   gap: 20px;
   box-shadow: 0 0 20px 0 rgba(76, 87, 125, 0.02);
   transition: all 0.3s ease;
+  cursor: default;
 }
 
 .stat-card:hover {
@@ -92,7 +93,6 @@
   color: #181c32;
 }
 
-/* --- HIZLI İŞLEMLER ALANI --- */
 .quick-actions-section {
   margin-bottom: 30px;
 }
@@ -103,7 +103,6 @@
   margin-bottom: 16px;
 }
 
-/* Küçük ekranlarda yan yana 2 buton durabilmesi için minmax 150px yapıldı */
 .quick-actions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -128,9 +127,9 @@
 }
 
 .action-btn:hover {
-  border-color: #009ef7;
+  border-color: #04AA6D;
   background-color: #f1faff;
-  color: #009ef7;
+  color: #04AA6D;
 }
 
 .widget-box {
@@ -255,7 +254,6 @@
   padding-bottom: 0;
 }
 
-/* Madde İmi (Nokta) */
 .list-dot {
   width: 8px;
   height: 8px;
@@ -273,7 +271,6 @@
   background-color: #009ef7;
 }
 
-/* Liste Metni */
 .item-title {
   flex: 1;
   font-weight: 500;
@@ -284,11 +281,10 @@
   text-overflow: ellipsis;
 }
 
-/* --- MOBİL UYUM (RESPONSIVE TASARIM) --- */
+/* RESPONSIVE TASARIM */
 @media (max-width: 768px) {
   .dashboard-container {
     padding: 16px 12px;
-    /* Mobilde kenar boşluklarını azalttık */
   }
 
   .dashboard-header h2 {

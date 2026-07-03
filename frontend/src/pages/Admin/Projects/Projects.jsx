@@ -4,7 +4,7 @@ import "./Projects.css";
 import Form from "../../../components/Form/Form";
 import Table from "../../../components/Table/Table";
 import API_URL from "../../../config/config";
-import Project_Card from "../../../components/Project_Card/Project_Card"; 
+import Project_Card from "../../../components/Project_Card/Project_Card";
 
 const Projects = () => {
   const [data, setData] = useState([]);
@@ -61,8 +61,11 @@ const Projects = () => {
 
     const formattedData = {
       ...formData,
+      // EĞER DÜZENLEME YAPILIYORSA VAR OLAN BEĞENİYİ KORU, YENİ EKLENİYORSA 0 GÖNDER
+      heart: formData.heart !== undefined ? formData.heart : 0,
+
       // Tarihi formata sokarak API'ye gönderiyoruz
-      date: getFormattedDate(formData.date), 
+      date: getFormattedDate(formData.date),
       skills: formData.skills
         ? formData.skills.split(",").map((s) => s.trim())
         : [],
@@ -128,7 +131,7 @@ const Projects = () => {
       <h2 className="content-h2">🗂️ Projelerim</h2>
 
       <div className="projects-top-container">
-        
+
         <div className="form-section">
           <Form
             fields={fields}
@@ -148,7 +151,7 @@ const Projects = () => {
                 title={formData.title || "Proje Başlığı"}
                 description={formData.description || "Proje açıklaması buraya gelecek..."}
                 skills={previewSkills.length > 0 ? previewSkills : ["Örnek Yetenek"]}
-                date={safePreviewDate || "YYYY-MM-DD"} 
+                date={safePreviewDate || "YYYY-MM-DD"}
                 links={previewLinks}
                 likeSum={Number(formData.heart) || 0}
               />
