@@ -5,7 +5,6 @@ import Form from "../../../components/Form/Form";
 import Table from "../../../components/Table/Table";
 import API_URL from "../../../config/config";
 import Project_Card from "../../../components/Project_Card/Project_Card";
-import { IMAGE_URL } from "../../../config/config";
 
 const Projects = () => {
   const [data, setData] = useState([]);

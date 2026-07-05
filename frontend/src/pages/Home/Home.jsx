@@ -5,7 +5,7 @@ import Skill from '../../components/Skill/Skill'
 import Project_Card from '../../components/Project_Card/Project_Card';
 import Blog_Card from '../../components/Blog_Card/Blog_Card';
 import Contact from '../../components/Contact/Contact';
-import API_URL, { IMAGE_URL } from '../../config/config.js';
+import API_URL from '../../config/config.js';
 
 const Home = () => {
 
@@ -289,7 +289,7 @@ const Home = () => {
                                     return (
                                         <Skill
                                             key={skill.id}
-                                            img={skill.img ? `${IMAGE_URL}${skill.img}` : ""}
+                                            img={skill.img || ""}
                                             title={skill.title}
                                         />
                                     )
@@ -346,7 +346,7 @@ const Home = () => {
                                         <div className="masonry-item" key={project.id}>
                                             <Project_Card
                                                 id={project.id}
-                                                img={project.img ? `${IMAGE_URL}${project.img}` : ""}
+                                                img={project.img || ""}
                                                 title={project.title}
                                                 description={project.description}
                                                 skills={project.skills}

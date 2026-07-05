@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Navbar.css';
-import API_URL, { IMAGE_URL } from '../../../config/config.js';
+import API_URL from '../../../config/config.js';
 
 const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
     const navigate = useNavigate();

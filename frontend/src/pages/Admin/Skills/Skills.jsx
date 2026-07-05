@@ -3,13 +3,13 @@ import axios from "axios";
 import "./Skills.css";
 import Form from "../../../components/Form/Form";
 import Table from "../../../components/Table/Table";
-import API_URL, { IMAGE_URL } from "../../../config/config";
+import API_URL from "../../../config/config";
 
 const Skills = () => {
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  
+
   // Dosya yükleme ve önizleme için state'ler
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -17,12 +17,12 @@ const Skills = () => {
   // Form bileşeninin type: "file" desteklediğini biliyoruz
   const fields = [
     { name: "title", label: "Yetenek Adı", type: "text" },
-    { name: "file", label: "Resim Seç", type: "file" }, 
+    { name: "file", label: "Resim Seç", type: "file" },
   ];
 
   const columnLabels = {
     title: "Yetenek Adı",
-    img: "Resim Yolu", 
+    img: "Resim Yolu",
   };
 
   // GET ALL
@@ -46,7 +46,7 @@ const Skills = () => {
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreviewUrl(objectUrl);
 
-    return () => URL.revokeObjectURL(objectUrl); 
+    return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
   // FORM.JSX İÇİN ÖZEL DOSYA YAKALAYICI FONKSİYON
@@ -66,7 +66,7 @@ const Skills = () => {
       title: formData.title,
       ...(isEditing && { id: formData.id || formData._id })
     };
-    
+
     submitData.append(
       "skill",
       new Blob([JSON.stringify(skillDto)], { type: "application/json" })
@@ -97,7 +97,7 @@ const Skills = () => {
       setSelectedFile(null);
       setPreviewUrl(null);
       setIsEditing(false);
-      
+
       fetchData();
     } catch (err) {
       console.log("Save/Update hatası:", err);
@@ -134,7 +134,7 @@ const Skills = () => {
             setFormData={setFormData}
             onSubmit={handleSubmit}
             isEditing={isEditing}
-            onFileChange={handleFileChange} 
+            onFileChange={handleFileChange}
           />
         </div>
 
@@ -144,7 +144,7 @@ const Skills = () => {
             {(previewUrl || formData.img) ? (
               <div className="preview-image-container">
                 <img
-                  src={previewUrl ? previewUrl : `${IMAGE_URL}${formData.img}`}
+                  src={previewUrl || formData.img || ""}
                   alt={formData.title || "Önizleme"}
                   className="preview-image"
                 />
