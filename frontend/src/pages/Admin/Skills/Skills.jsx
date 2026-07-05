@@ -3,62 +3,101 @@ import axios from "axios";
 import "./Skills.css";
 import Form from "../../../components/Form/Form";
 import Table from "../../../components/Table/Table";
-import API_URL from "../../../config/config";
-
-const IMAGE_BASE_PATH = "/img/";
+import API_URL, { IMAGE_URL } from "../../../config/config";
 
 const Skills = () => {
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  
+  // Dosya yükleme ve önizleme için state'ler
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
+  // Form bileşeninin type: "file" desteklediğini biliyoruz
   const fields = [
     { name: "title", label: "Yetenek Adı", type: "text" },
-    { name: "img", label: "Resim Yolu", type: "text" },
+    { name: "file", label: "Resim Seç", type: "file" }, 
   ];
 
   const columnLabels = {
     title: "Yetenek Adı",
-    img: "Resim Yolu",
+    img: "Resim Yolu", 
   };
 
   // GET ALL
   const fetchData = () => {
     axios
       .get(API_URL.SKILL.GET_ALL)
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log("Liste hatası:", err);
-      });
+      .then((res) => setData(res.data))
+      .catch((err) => console.log("Liste hatası:", err));
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Yeni dosya seçildiğinde yerel önizleme oluşturma
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreviewUrl(null);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreviewUrl(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl); 
+  }, [selectedFile]);
+
+  // FORM.JSX İÇİN ÖZEL DOSYA YAKALAYICI FONKSİYON
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
   // SAVE + UPDATE
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+
+    const submitData = new FormData();
+
+    const skillDto = {
+      title: formData.title,
+      ...(isEditing && { id: formData.id || formData._id })
+    };
+    
+    submitData.append(
+      "skill",
+      new Blob([JSON.stringify(skillDto)], { type: "application/json" })
+    );
+
+    // Seçilen dosyayı ekle
+    if (selectedFile) {
+      submitData.append("file", selectedFile);
+    }
 
     try {
       if (isEditing) {
-        // UPDATE
         await axios.put(
-          API_URL.SKILL.UPDATE(formData.id || formData._id),
-          formData
+          API_URL.SKILL.UPDATE(skillDto.id),
+          submitData,
+          { headers: { "Content-Type": "multipart/form-data" } }
         );
       } else {
-        // SAVE
         await axios.post(
           API_URL.SKILL.SAVE,
-          formData
+          submitData,
+          { headers: { "Content-Type": "multipart/form-data" } }
         );
       }
 
+      // Başarılı işlem sonrası her şeyi sıfırla
       setFormData({});
+      setSelectedFile(null);
+      setPreviewUrl(null);
       setIsEditing(false);
+      
       fetchData();
     } catch (err) {
       console.log("Save/Update hatası:", err);
@@ -69,15 +108,14 @@ const Skills = () => {
   const handleEdit = (item) => {
     setFormData(item);
     setIsEditing(true);
+    setSelectedFile(null); // Düzenlemeye geçerken önceki seçili dosyayı temizle
+    setPreviewUrl(null);
   };
 
   // DELETE
   const handleDelete = async (id) => {
     try {
-      await axios.delete(
-        API_URL.SKILL.DELETE(id)
-      );
-
+      await axios.delete(API_URL.SKILL.DELETE(id));
       fetchData();
     } catch (err) {
       console.log("Silme hatası:", err);
@@ -96,25 +134,24 @@ const Skills = () => {
             setFormData={setFormData}
             onSubmit={handleSubmit}
             isEditing={isEditing}
+            onFileChange={handleFileChange} 
           />
         </div>
 
         <div className="preview-section">
           <h3>Önizleme</h3>
           <div className="preview-content">
-            {formData.img ? (
-              <>
-                <div className="preview-image-container">
-                  <img
-                    src={`${IMAGE_BASE_PATH}${formData.img}`}
-                    alt={formData.title || "Önizleme"}
-                    className="preview-image"
-                  />
-                  {formData.title && <p className="preview-title">{formData.title}</p>}
-                </div>
-              </>
+            {(previewUrl || formData.img) ? (
+              <div className="preview-image-container">
+                <img
+                  src={previewUrl ? previewUrl : `${IMAGE_URL}${formData.img}`}
+                  alt={formData.title || "Önizleme"}
+                  className="preview-image"
+                />
+                {formData.title && <p className="preview-title">{formData.title}</p>}
+              </div>
             ) : (
-              <p className="no-image-text">Resim adı girildiğinde önizleme burada görünecektir.</p>
+              <p className="no-image-text">Lütfen bir resim seçin.</p>
             )}
           </div>
         </div>

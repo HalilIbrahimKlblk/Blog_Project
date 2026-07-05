@@ -5,16 +5,19 @@ import Form from "../../../components/Form/Form";
 import Table from "../../../components/Table/Table";
 import API_URL from "../../../config/config";
 import Project_Card from "../../../components/Project_Card/Project_Card";
+import { IMAGE_URL } from "../../../config/config";
 
 const Projects = () => {
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const fields = [
-    { name: "img", label: "Resim Yolu", type: "text" },
+    { name: "img", label: "Proje Resmi", type: "file" }, 
     { name: "title", label: "Proje Başlığı", type: "text" },
-    { name: "description", label: "Proje Açıklaması", type: "text" },
+    { name: "description", label: "Proje Açıklaması", type: "textarea" },
     { name: "skills", label: "Proje Becerileri (Virgülle ayırın)", type: "text" },
     { name: "github", label: "GitHub", type: "text" },
     { name: "linkedin", label: "LinkedIn", type: "text" },
@@ -25,9 +28,7 @@ const Projects = () => {
   const columnLabels = {
     img: "Resim Yolu",
     title: "Proje Başlığı",
-    //description: "Proje Açıklaması",
     skills: "Proje Becerileri",
-    //socialMedia: "Sosyal Medya",
     heart: "Beğeni Sayısı",
     date: "Tarih",
   };
@@ -43,7 +44,6 @@ const Projects = () => {
     fetchData();
   }, []);
 
-  // 🚀 EKLENEN YARDIMCI FONKSİYON: Tarihi güvenli String'e çevirir
   const getFormattedDate = (dateVal) => {
     if (!dateVal) return "";
     if (typeof dateVal === "string") return dateVal.split("T")[0];
@@ -61,14 +61,9 @@ const Projects = () => {
 
     const formattedData = {
       ...formData,
-      // EĞER DÜZENLEME YAPILIYORSA VAR OLAN BEĞENİYİ KORU, YENİ EKLENİYORSA 0 GÖNDER
       heart: formData.heart !== undefined ? formData.heart : 0,
-
-      // Tarihi formata sokarak API'ye gönderiyoruz
       date: getFormattedDate(formData.date),
-      skills: formData.skills
-        ? formData.skills.split(",").map((s) => s.trim())
-        : [],
+      skills: formData.skills ? formData.skills.split(",").map((s) => s.trim()) : [],
       socialMedia: {
         github: formData.github || "",
         linkedin: formData.linkedin || "",
@@ -76,17 +71,41 @@ const Projects = () => {
       },
     };
 
+    // 🚀 DEĞİŞİKLİK 3: Verileri FormData içine koyuyoruz
+    const formDataToSend = new FormData();
+    
+    // Proje JSON verisini Blob olarak ekliyoruz (@RequestPart("project") için)
+    formDataToSend.append("project", new Blob([JSON.stringify(formattedData)], {
+        type: "application/json"
+    }));
+
+    // Seçilen dosya varsa ekliyoruz (@RequestPart("file") için)
+    if (selectedFile) {
+        formDataToSend.append("file", selectedFile);
+    }
+
+    // İstek atarken kullanacağımız ortak header
+    const axiosConfig = {
+        headers: { "Content-Type": "multipart/form-data" }
+    };
+
     try {
       if (isEditing) {
         await axios.put(
           API_URL.PROJECT.UPDATE(formData.id || formData._id),
-          formattedData
+          formDataToSend, 
+          axiosConfig // 🚀 Config eklendi
         );
       } else {
-        await axios.post(API_URL.PROJECT.SAVE, formattedData);
+        await axios.post(
+            API_URL.PROJECT.SAVE, 
+            formDataToSend, 
+            axiosConfig // 🚀 Config eklendi
+        );
       }
 
       setFormData({});
+      setSelectedFile(null); // 🚀 Başarılı olunca dosya state'ini temizle
       setIsEditing(false);
       fetchData();
     } catch (err) {
@@ -103,6 +122,7 @@ const Projects = () => {
       instagram: item.socialMedia?.instagram || "",
       date: item.date?.split("T")[0] || "",
     });
+    setSelectedFile(null); // 🚀 Edit moduna geçerken önceki kalıntı dosyayı temizle
     setIsEditing(true);
   };
 
@@ -115,23 +135,24 @@ const Projects = () => {
     }
   };
 
-  const hasFormData = Object.values(formData).some(val => val !== "" && val !== undefined);
+  // 🚀 DEĞİŞİKLİK 4: Form bileşenine dosyayı yakalaması için fonksiyon gönderiyoruz
+  const handleFileChange = (e) => {
+      setSelectedFile(e.target.files[0]);
+  };
 
+  const hasFormData = Object.values(formData).some(val => val !== "" && val !== undefined);
   const previewSkills = formData.skills ? formData.skills.split(",").map((s) => s.trim()) : [];
   const previewLinks = {
     github: formData.github,
     linkedin: formData.linkedin,
     instagram: formData.instagram,
   };
-
   const safePreviewDate = getFormattedDate(formData.date);
 
   return (
     <div className="projects-page">
       <h2 className="content-h2">🗂️ Projelerim</h2>
-
       <div className="projects-top-container">
-
         <div className="form-section">
           <Form
             fields={fields}
@@ -139,15 +160,15 @@ const Projects = () => {
             setFormData={setFormData}
             onSubmit={handleSubmit}
             isEditing={isEditing}
+            onFileChange={handleFileChange} // 🚀 Yeni ekledik
           />
         </div>
-
         <div className="preview-section">
           <h3>Önizleme</h3>
           <div className="preview-content">
             {hasFormData ? (
               <Project_Card
-                img={formData.img}
+                img={selectedFile ? URL.createObjectURL(selectedFile) : (formData.img ? `${IMAGE_URL}${formData.img}` : "")}
                 title={formData.title || "Proje Başlığı"}
                 description={formData.description || "Proje açıklaması buraya gelecek..."}
                 skills={previewSkills.length > 0 ? previewSkills : ["Örnek Yetenek"]}
@@ -162,9 +183,7 @@ const Projects = () => {
             )}
           </div>
         </div>
-
       </div>
-
       <div className="table-section">
         <Table
           data={data}

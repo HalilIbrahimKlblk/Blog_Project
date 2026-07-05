@@ -3,7 +3,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Kütüphanenin temel stilleri
 import "./Form.css";
 
-const Form = ({ fields, formData, setFormData, onSubmit, isEditing }) => {
+// 🚀 DEĞİŞİKLİK 1: onFileChange prop'unu ekledik. Varsayılan olarak boş fonksiyon verdik ki diğer sayfalar bozulmasın.
+const Form = ({ fields, formData, setFormData, onSubmit, isEditing, onFileChange = () => {} }) => {
     const handleChange = (name, value) => {
         setFormData((prev) => ({
             ...prev,
@@ -33,7 +34,16 @@ const Form = ({ fields, formData, setFormData, onSubmit, isEditing }) => {
                             showIcon // İkonu gösterir
                             toggleCalendarOnIconClick
                         />
+                    ) : field.type === "file" ? (
+                        /* 🚀 DEĞİŞİKLİK 2: Dosya inputu için özel ve güvenli render alanı */
+                        <input
+                            type="file"
+                            accept="image/*" // Sadece resim dosyalarının seçilmesini kolaylaştırır
+                            onChange={onFileChange} // Üst bileşenden (Projects.jsx) gelen fonksiyonu tetikler
+                            // DİKKAT: File inputlarında 'value' kullanılamaz, o yüzden formData[field.name] vermiyoruz!
+                        />
                     ) : (
+                        /* Mevcut standart input yapın (text, number vs. için) */
                         <input
                             type={field.type || "text"}
                             value={formData[field.name] || ""}

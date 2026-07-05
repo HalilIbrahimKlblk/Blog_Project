@@ -31,7 +31,7 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "img", nullable = false, length = 50)
+	@Column(name = "img", nullable = false, length = 255)
 	private String img;
 	
 	@Column(name = "title", nullable = false, length = 50)

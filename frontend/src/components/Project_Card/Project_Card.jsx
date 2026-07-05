@@ -6,8 +6,6 @@ import API_URL from '../../config/config.js';
 
 const Project_Card = ({ id, img, title, description, skills, date, links = {}, likeSum }) => {
 
-    const imagePath = `/img/${img}`;
-
     const [liked, setLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(likeSum);
 
@@ -45,7 +43,8 @@ const Project_Card = ({ id, img, title, description, skills, date, links = {}, l
     return (
         <div className="card">
             <div className="card-image">
-                <img src={imagePath} alt={title || "Event"} />
+                {/* 🚀 DİKKAT: src değerine doğrudan img prop'u atandı */}
+                <img src={img} alt={title || "Proje Resmi"} />
             </div>
             <div className="card-content">
                 <h5 className="card-title">{title}</h5>

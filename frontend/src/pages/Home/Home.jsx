@@ -63,7 +63,7 @@ const Home = () => {
             if (section) {
                 section.scrollIntoView({ behavior: "smooth", block: "start" });
             }
-        }, 100); // 100ms gecikme React'in DOM'u güncellemesi için yeterlidir
+        }, 100);
     };
 
     // Ekran boyutunu dinleyip sütun sayısını ayarlayan useEffect
@@ -285,11 +285,15 @@ const Home = () => {
                             ) : skillsError ? (
                                 <p style={{ color: "red" }}>{skillsError}</p>
                             ) : (
-                                skills.map((skill) => (
-                                    <div key={skill.id}>
-                                        <Skill img={skill.img} title={skill.title} />
-                                    </div>
-                                ))
+                                skills.map((skill) => {
+                                    return (
+                                        <Skill
+                                            key={skill.id}
+                                            img={skill.img ? `${IMAGE_URL}${skill.img}` : ""}
+                                            title={skill.title}
+                                        />
+                                    )
+                                })
                             )}
                         </div>
                     </div>
@@ -342,7 +346,7 @@ const Home = () => {
                                         <div className="masonry-item" key={project.id}>
                                             <Project_Card
                                                 id={project.id}
-                                                img={project.img}
+                                                img={project.img ? `${IMAGE_URL}${project.img}` : ""}
                                                 title={project.title}
                                                 description={project.description}
                                                 skills={project.skills}
@@ -356,7 +360,7 @@ const Home = () => {
                             ))}
                         </div>
 
-                        {/* Proje Pagination UI */}
+                        {/* Proje Pagination */}
                         {totalProjectPages > 1 && (
                             <div className="pagination">
                                 <button
@@ -415,7 +419,7 @@ const Home = () => {
                                 ))}
                             </div>
 
-                            {/* Blog Pagination UI */}
+                            {/* Blog Pagination */}
                             {totalBlogPages > 1 && (
                                 <div className="pagination">
                                     <button

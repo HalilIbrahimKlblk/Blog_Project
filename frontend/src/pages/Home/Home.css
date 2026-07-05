@@ -109,7 +109,6 @@ section {
     align-items: center;
   }
 }
-
 /*Hero Bitiş*/
 
 /*Title Başlangıç*/
@@ -140,7 +139,6 @@ section {
   background: var(--primary-color);
   border-radius: 1px;
 }
-
 /*Title Bitiş*/
 
 /*Hakkımda Başlangıç*/
@@ -263,6 +261,10 @@ section {
 
   .about-content {
     padding: 30px 22.5px;
+  }
+
+  .about-role {
+    justify-content: center;
   }
 }
 
