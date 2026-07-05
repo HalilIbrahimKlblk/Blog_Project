@@ -168,7 +168,7 @@ const Projects = () => {
           <div className="preview-content">
             {hasFormData ? (
               <Project_Card
-                img={selectedFile ? URL.createObjectURL(selectedFile) : (formData.img ? `${IMAGE_URL}${formData.img}` : "")}
+                img={selectedFile ? URL.createObjectURL(selectedFile) : formData.img || ""}
                 title={formData.title || "Proje Başlığı"}
                 description={formData.description || "Proje açıklaması buraya gelecek..."}
                 skills={previewSkills.length > 0 ? previewSkills : ["Örnek Yetenek"]}

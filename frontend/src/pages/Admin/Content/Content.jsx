@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Form from "../../../components/Form/Form";
 import Table from "../../../components/Table/Table";
 import './Content.css';
-import API_URL, { IMAGE_URL } from '../../../config/config.js';
+import API_URL from '../../../config/config.js';
 
 
 const Content = () => {
@@ -150,7 +150,7 @@ const Content = () => {
               <div className="preview-card" style={{ maxWidth: "100%", overflow: "hidden" }}>
                 <div className="preview-image-container">
                   <img
-                    src={`${IMAGE_URL}${formData.img}`}
+                    src={formData.img}
                     alt="Profil"
                     className="preview-img"
                     onError={(e) => {

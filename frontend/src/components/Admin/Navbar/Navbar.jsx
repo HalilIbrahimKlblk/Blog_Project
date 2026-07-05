@@ -72,7 +72,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
 
                 <div className="admin-profile">
                     <img
-                        src={`${IMAGE_URL}${admin.img}`}
+                        src={admin.img}
                         alt="Profil"
                         className="admin-profile-pic"
                     />

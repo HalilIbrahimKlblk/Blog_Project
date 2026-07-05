@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import API_URL, { IMAGE_URL } from "../../../config/config.js";
+import API_URL from "../../../config/config.js";
 import './Settings.css';
 
 const Settings = () => {
@@ -122,7 +122,7 @@ const Settings = () => {
       if (response.ok) {
         showMessage('success', 'Bilgiler başarıyla güncellendi.');
         setAdminData({ ...formData, id: updateId });
-        setEditedFields({}); // Başarılı kayıttan sonra tekrar gizlenip yer tutucuların görünmesi için
+        setEditedFields({}); 
       } else {
         showMessage('error', 'Güncelleme hatası. Sunucu isteği reddetti.');
       }
@@ -202,7 +202,7 @@ const Settings = () => {
           <div className="card profile-card">
             <div className="profile-image-container">
               {adminData.img ? (
-                <img src={`${IMAGE_URL}${adminData.img}`} className="profile-img" alt="Profile" />
+                <img src={adminData.img} className="profile-img" alt="Profile" />
               ) : (
                 <div className="profile-placeholder">
                   {adminData.name ? adminData.name.charAt(0).toUpperCase() : 'A'}

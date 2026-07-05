@@ -210,7 +210,7 @@ const Home = () => {
                         <>
                             <div className="about-left">
                                 {admin?.img && (
-                                    <img src={adminData.img} alt={`${admin?.name || ''} ${admin?.surname || ''}`} className="profile-pic" width={300} />
+                                    <img src={admin.img} alt={`${admin?.name || ''} ${admin?.surname || ''}`} className="profile-pic" width={300} />
                                 )}
                             </div>
                             <div className="about-right">
