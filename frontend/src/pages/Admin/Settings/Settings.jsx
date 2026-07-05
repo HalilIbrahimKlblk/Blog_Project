@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import API_URL from "../../../config/config.js";
+import API_URL, { IMAGE_URL } from "../../../config/config.js";
 import './Settings.css';
 
 const Settings = () => {
@@ -202,7 +202,7 @@ const Settings = () => {
           <div className="card profile-card">
             <div className="profile-image-container">
               {adminData.img ? (
-                <img src={`http://192.168.1.106:8080/uploads/img/${adminData.img}`} className="profile-img" alt="Profile" />
+                <img src={`${IMAGE_URL}${adminData.img}`} className="profile-img" alt="Profile" />
               ) : (
                 <div className="profile-placeholder">
                   {adminData.name ? adminData.name.charAt(0).toUpperCase() : 'A'}
