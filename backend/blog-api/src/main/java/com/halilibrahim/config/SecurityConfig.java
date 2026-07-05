@@ -18,9 +18,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(Customizer.withDefaults()) // Spring Security'e WebConfig dosyasındaki CORS ayarlarını kullanmasını bildirir
-            .csrf(csrf -> csrf.disable()) // Geliştirme aşamasında CSRF korumasını kapatır
-            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll()); // Şimdilik tüm isteklere yetki kısıtlaması olmadan izin verir
+            .cors(Customizer.withDefaults()) 
+            .csrf(csrf -> csrf.disable()) 
+            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll()); 
             
         return http.build();
     }
