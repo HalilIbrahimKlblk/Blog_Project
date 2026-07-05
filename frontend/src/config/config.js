@@ -1,6 +1,6 @@
-const BASE_URL = "http://192.168.1.106:8080/blog-api/v1";
+const BASE_URL = "https://blog-project-zk3v.onrender.com/blog-api/v1";
 
-export const IMAGE_URL = "http://192.168.1.106:8080/uploads/img/";
+export const IMAGE_URL = "https://blog-project-zk3v.onrender.com/uploads/img/";
 
 const ADMIN_URL = "/admin";
 const SKILL_URL = "/skill";
