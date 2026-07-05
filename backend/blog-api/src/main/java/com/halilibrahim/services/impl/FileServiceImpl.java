@@ -1,22 +1,20 @@
 package com.halilibrahim.services.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.halilibrahim.services.IFileService;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
+import java.util.Map;
 
 @Service
 public class FileServiceImpl implements IFileService {
 
-    @Value("${app.upload.dir}")
-    private String uploadDir;
+    @Autowired
+    private Cloudinary cloudinary;
 
     @Override
     public String saveImage(MultipartFile file) throws IOException {
@@ -24,24 +22,12 @@ public class FileServiceImpl implements IFileService {
             throw new RuntimeException("Yüklenen dosya boş olamaz.");
         }
 
-        // 1. Dosyanın orijinal adını al
-        String originalFilename = file.getOriginalFilename();
+        // Dosyayı doğrudan Cloudinary'ye yüklüyoruz.
+        // Klasör yapısını karmaşıklaştırmadan doğrudan ana dizine ekliyoruz.
+        Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
         
-        // 2. Benzersiz dosya adı üret
-        String uniqueFilename = UUID.randomUUID().toString() + "_" + originalFilename;
-        
-        // 3. Klasör yolunu hazırla
-        Path uploadPath = Paths.get(uploadDir);
-        
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-        
-        // 4. Dosyayı fiziksel olarak kaydet
-        Path filePath = uploadPath.resolve(uniqueFilename);
-        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-        
-        // 5. Yeni dosya adını döndür
-        return uniqueFilename;
+        // Cloudinary bize "https://res.cloudinary.com/..." ile başlayan kalıcı ve tam bir URL döndürür.
+        // Veritabanına sadece resim adını değil, bu tam URL'yi kaydediyoruz.
+        return uploadResult.get("secure_url").toString();
     }
 }
