@@ -727,3 +727,54 @@ section {
   background-color: transparent;
 }
 /* PAGINATION BİTİŞ */
+
+/* =========================================
+   TAM SAYFA YÜKLENİYOR (LOADING) EKRANI 
+========================================= */
+
+.full-page-loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    width: 100vw;
+    background-color: #ffffff; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+/* DÖNEN YUVARLAK ANİMASYON */
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #4b5563;
+    border-top-color: #04AA6D; 
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.loading-text {
+    color: #4b5563;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes spin {
+    to { 
+        transform: rotate(360deg); 
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0.5; 
+    }
+}

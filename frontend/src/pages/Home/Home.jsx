@@ -162,13 +162,16 @@ const Home = () => {
         fetchProjects();
     }, []);
 
+    // --- TÜM VERİLERİN YÜKLENME DURUMUNU KONTROL ET ---
+    const isPageLoading = isAdminLoading || isEducationsLoading || isSkillsLoading || isBlogsLoading || isProjectsLoading;
+
     // --- PROJE PAGINATION HESAPLAMALARI ---
     const indexOfLastProject = projectPage * PROJECTS_PER_PAGE;
     const indexOfFirstProject = indexOfLastProject - PROJECTS_PER_PAGE;
     const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
     const totalProjectPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
 
-    // Projeleri sütunlara soldan sağa sırayla dağıtma işlemi (SADECE O SAYFADAKİLERİ - currentProjects)
+    // Projeleri sütunlara soldan sağa sırayla dağıtma işlemi
     const projectColumns = Array.from({ length: columnCount }, () => []);
     currentProjects.forEach((project, index) => {
         projectColumns[index % columnCount].push(project);
@@ -179,6 +182,16 @@ const Home = () => {
     const indexOfFirstBlog = indexOfLastBlog - BLOGS_PER_PAGE;
     const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
     const totalBlogPages = Math.ceil(blogs.length / BLOGS_PER_PAGE);
+
+    // EĞER SAYFA YÜKLENİYORSA TAM EKRAN LOADER GÖSTER
+    if (isPageLoading) {
+        return (
+            <div className="full-page-loader">
+                <div className="loading-spinner"></div>
+                <h2 className="loading-text">Portfolyo Hazırlanıyor...</h2>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -202,9 +215,7 @@ const Home = () => {
             <h2 className="section-title" id='about'><span>Hakkımda</span></h2>
             <div className="container">
                 <div className="about-content">
-                    {isAdminLoading ? (
-                        <p style={{ color: "white", width: "100%", textAlign: "center" }}>Yükleniyor...</p>
-                    ) : adminError ? (
+                    {adminError ? (
                         <p style={{ color: "red", width: "100%", textAlign: "center" }}>{adminError}</p>
                     ) : (
                         <>
@@ -239,22 +250,22 @@ const Home = () => {
             <div className="container">
                 <div className="stats-minimal-container">
                     <div className="stat-minimal-item">
-                        <h3 className="stat-minimal-number">{isProjectsLoading ? "-" : projects.length}+</h3>
+                        <h3 className="stat-minimal-number">{projects.length}+</h3>
                         <p className="stat-minimal-text">PROJE</p>
                     </div>
                     <div className="stat-minimal-divider"></div>
                     <div className="stat-minimal-item">
-                        <h3 className="stat-minimal-number">{isSkillsLoading ? "-" : skills.length}+</h3>
+                        <h3 className="stat-minimal-number">{skills.length}+</h3>
                         <p className="stat-minimal-text">TEKNOLOJİ</p>
                     </div>
                     <div className="stat-minimal-divider"></div>
                     <div className="stat-minimal-item">
-                        <h3 className="stat-minimal-number">{isBlogsLoading ? "-" : blogs.length}+</h3>
+                        <h3 className="stat-minimal-number">{blogs.length}+</h3>
                         <p className="stat-minimal-text">MAKALE</p>
                     </div>
                     <div className="stat-minimal-divider"></div>
                     <div className="stat-minimal-item">
-                        <h3 className="stat-minimal-number">{isEducationsLoading ? "-" : educations.length}</h3>
+                        <h3 className="stat-minimal-number">{educations.length}</h3>
                         <p className="stat-minimal-text">SERTİFİKA & EĞİTİM</p>
                     </div>
                 </div>
@@ -266,9 +277,7 @@ const Home = () => {
                     <div className='about-flex-item'>
                         <h2 className='about-h2'>Eğitim Hayatım</h2>
                         <ul className='timeline'>
-                            {isEducationsLoading ? (
-                                <p style={{ color: "white" }}>Yükleniyor...</p>
-                            ) : educationsError ? (
+                            {educationsError ? (
                                 <p style={{ color: "red" }}>{educationsError}</p>
                             ) : (
                                 educations.map((edu) => (
@@ -280,9 +289,7 @@ const Home = () => {
                     <div className='about-flex-item'>
                         <h2 className='about-h2'>Becerilerim</h2>
                         <div className='skills-container'>
-                            {isSkillsLoading ? (
-                                <p style={{ color: "white" }}>Yükleniyor...</p>
-                            ) : skillsError ? (
+                            {skillsError ? (
                                 <p style={{ color: "red" }}>{skillsError}</p>
                             ) : (
                                 skills.map((skill) => {
@@ -333,9 +340,7 @@ const Home = () => {
             {/* PROJELER ALANI */}
             <h2 className="section-title" id='projects'><span>Projelerim</span></h2>
             <div className="container">
-                {isProjectsLoading ? (
-                    <p style={{ color: "white" }}>Projeler yükleniyor...</p>
-                ) : projectsError ? (
+                {projectsError ? (
                     <p style={{ color: "red" }}>{projectsError}</p>
                 ) : (
                     <>
@@ -400,13 +405,10 @@ const Home = () => {
             <h2 className="section-title" id='blog'><span>Blog</span></h2>
             <div className="container">
                 <div>
-                    {isBlogsLoading ? (
-                        <p style={{ color: "white" }}>Blog yazıları yükleniyor...</p>
-                    ) : blogsError ? (
+                    {blogsError ? (
                         <p style={{ color: "red" }}>{blogsError}</p>
                     ) : (
                         <>
-                            {/* className="masonry" kısmını sildik, orijinalindeki gibi sadece div kaldı */}
                             <div>
                                 {currentBlogs.map((blog) => (
                                     <div className="masonry-item" key={blog.id}>
