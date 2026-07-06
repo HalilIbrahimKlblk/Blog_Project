@@ -188,7 +188,7 @@ const Home = () => {
         return (
             <div className="full-page-loader">
                 <div className="loading-spinner"></div>
-                <h2 className="loading-text">Portfolyo Hazırlanıyor...</h2>
+                <h2 className="loading-text">Web Sitesi Yükleniyor...</h2>
             </div>
         );
     }
